@@ -1,0 +1,377 @@
+/* ==========================================================================
+   Glassmorphism Ortak Stil
+   ========================================================================== */
+   .glassmorphic {
+    background: var(--glass-bg);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid var(--neon-cyan);
+    border-radius: 8px;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .glassmorphic {
+      backdrop-filter: none;
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+  
+  /* ==========================================================================
+     Glassmorphism Bileşenler
+     ========================================================================== */
+  .glassmorphic-panel {
+    @apply glassmorphic;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .glassmorphic-panel:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 204, 255, 0.2);
+  }
+  
+  .glassmorphic-button {
+    @apply glassmorphic;
+    color: var(--solana-white);
+    padding: 0.5rem 1rem;
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    will-change: transform, opacity;
+    min-width: 44px;
+    min-height: 44px;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  }
+  
+  .glassmorphic-button:hover {
+    background: rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 8px var(--neon-cyan);
+    color: var(--solana-white);
+    text-shadow: 0 0 4px var(--neon-cyan);
+    transform: scale(1.03);
+  }
+  
+  .glassmorphic-button:active {
+    transform: scale(0.98);
+  }
+  
+  .glassmorphic-button:disabled {
+    background: var(--dark-gray);
+    color: rgba(255, 255, 255, 0.5);
+    border-color: var(--dark-gray);
+    cursor: not-allowed;
+  }
+  
+  /* Primary wallet butonu */
+  .wallet-button--primary {
+    background: linear-gradient(45deg, var(--solana-purple), var(--solana-green));
+    border: none;
+    color: var(--bg-dark);
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    margin: 0.5rem;
+    text-align: center;
+    box-shadow: 0 0 8px var(--neon-cyan);
+  }
+  
+  .wallet-button--primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 12px var(--neon-cyan);
+  }
+  
+  /* Input alanları */
+  .glassmorphic-input {
+    @apply glassmorphic;
+    padding: 0.75rem;
+    color: var(--solana-white);
+    font-family: 'Orbitron', sans-serif;
+    transition: all 0.2s ease;
+  }
+  
+  .glassmorphic-input:focus {
+    outline: none;
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 8px var(--neon-cyan);
+  }
+  
+  /* ==========================================================================
+     Hero Bölümü
+     ========================================================================== */
+  .hero-section {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg-dark);
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    max-width: 700px;
+    width: 90%;
+    z-index: 10;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 900;
+    font-family: 'Exo 2', sans-serif;
+    color: var(--solana-white);
+    text-shadow: 0 0 6px var(--neon-cyan);
+    margin-bottom: 1.5rem;
+    display: inline-flex;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 10;
+  }
+  
+  .code-char {
+    opacity: 0;
+    animation: codeFadeIn 0.4s ease forwards;
+    display: inline-block;
+    color: var(--solana-white);
+    text-shadow: 0 0 6px var(--neon-cyan);
+  }
+  
+  .hero-subtitle {
+    font-size: 1.6rem;
+    color: var(--solana-white);
+    margin-bottom: 2rem;
+    text-shadow: 0 0 4px var(--neon-cyan);
+    position: relative;
+    z-index: 10;
+    max-width: 90%;
+    opacity: 0;
+    animation: subtitleFadeIn 1.5s ease forwards 0.5s;
+  }
+  
+  .energy-button {
+    position: relative;
+    background: linear-gradient(45deg, var(--solana-purple), var(--solana-green));
+    color: var(--bg-dark);
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-family: 'Exo 2', sans-serif;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px var(--neon-cyan);
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    overflow: hidden;
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  .energy-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px var(--neon-cyan);
+    background: linear-gradient(45deg, var(--solana-green), var(--solana-purple));
+  }
+  
+  .energy-button:active {
+    transform: scale(0.98);
+  }
+  
+  .energy-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+  }
+  
+  .energy-button:hover::before {
+    width: 200%;
+    height: 200%;
+    opacity: 1;
+  }
+  
+  /* ==========================================================================
+     Navbar Stilleri
+     ========================================================================== */
+  .cyber-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-bottom: 1px solid var(--neon-cyan);
+    padding: 0.5rem 1rem;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+  }
+  
+  .navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .cyber-title {
+    font-size: 1.2rem;
+    color: var(--solana-green);
+    text-shadow: 0 0 6px var(--solana-green);
+    margin: 0 1rem;
+  }
+  
+  .nav-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .nav-button {
+    background: transparent;
+    border: none;
+    color: var(--solana-green);
+    font-size: 1rem;
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease;
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  .nav-button:hover {
+    color: var(--solana-white);
+    background: rgba(102, 204, 255, 0.1);
+    text-shadow: 0 0 4px var(--neon-cyan);
+  }
+  
+  .nav-button.active {
+    color: var(--neon-cyan);
+    background: rgba(102, 204, 255, 0.2);
+  }
+  
+  .hamburger-menu {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--solana-green);
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  .hamburger-menu:hover {
+    color: var(--solana-white);
+    text-shadow: 0 0 6px var(--neon-cyan);
+  }
+  
+  .navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  /* ==========================================================================
+     Genel Container
+     ========================================================================== */
+  .cyber-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 5rem 2rem 2rem;
+  }
+  
+  /* ==========================================================================
+     Arama Bölümü
+     ========================================================================== */
+  .search-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0;
+    padding: 1rem;
+  }
+  
+  .cyber-input {
+    width: 300px;
+    transition: all 0.2s ease;
+  }
+  
+  .cyber-button {
+    background: linear-gradient(45deg, var(--solana-purple), var(--solana-green));
+    color: var(--bg-dark);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  .cyber-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px var(--neon-cyan);
+  }
+  
+  .cyber-button:disabled {
+    background: var(--dark-gray);
+    cursor: not-allowed;
+  }
+  
+  .error-text {
+    color: var(--neon-red);
+    text-align: center;
+    margin: 1rem 0;
+    text-shadow: 0 0 6px var(--neon-red);
+    animation: fadeIn 0.5s ease;
+  }
+  
+  /* ==========================================================================
+     Kayan Bildirim (Toast)
+     ========================================================================== */
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(4px);
+    border: 1px solid var(--neon-green);
+    padding: 1rem;
+    border-radius: 8px;
+    color: var(--solana-white);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 3000;
+    animation: slideIn 0.5s ease forwards, slideOut 0.5s ease 2.5s forwards;
+  }
+  
+  .toast.error {
+    border-color: var(--neon-red);
+    background: rgba(255, 30, 30, 0.2);
+  }

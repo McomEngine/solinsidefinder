@@ -1,0 +1,58 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: var(--accent-gray);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 800px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+  }
+  
+  .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .transaction-list {
+    margin-top: 20px;
+  }
+  
+  .transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .transaction-table th,
+  .transaction-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--accent-turquoise);
+  }
+  
+  .transaction-table th {
+    background: var(--accent-purple);
+    color: #fff;
+  }
+  
+  .buy {
+    color: var(--accent-turquoise);
+  }
+  
+  .sell {
+    color: var(--accent-purple);
+  }

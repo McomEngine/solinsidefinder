@@ -1,0 +1,277 @@
+/* styles/accumulation.css */
+/* ==========================================================================
+   Accumulation Widget Styles
+   ========================================================================== */
+   .accumulation-widget {
+    padding: 1.5rem;
+    position: relative;
+    z-index: 200;
+  }
+  
+  .accumulation-card {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background: var(--panel-bg);
+    box-shadow: var(--glitch-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .accumulation-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.5);
+  }
+  
+  .accumulation-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .accumulation-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .metric-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .metric-item span {
+    font-size: 0.9rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  
+  .circular-progress {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .accumulation-score .circular-progress {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .score-value {
+    color: var(--accent-turquoise);
+    font-weight: 700;
+  }
+  
+  .widget-subtitle {
+    font-size: 1rem;
+    color: var(--accent-gray);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background: var(--panel-bg);
+    color: var(--white);
+    text-align: center;
+    border-radius: 6px;
+    padding: 0.5rem;
+    position: absolute;
+    z-index: 1001;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    box-shadow: var(--glitch-shadow);
+  }
+  
+  .tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(-4px);
+  }
+  
+  .no-data {
+    color: var(--accent-gray);
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  .token-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .token-address {
+    font-size: 1rem;
+    color: var(--accent-turquoise);
+    text-decoration: none;
+  }
+  
+  .token-address:hover {
+    text-shadow: 0 0 10px rgba(45, 212, 191, 0.7);
+  }
+  
+  .remove-token-button {
+    background: var(--accent-purple);
+    color: var(--bg-dark);
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .remove-token-button:hover {
+    background: var(--accent-turquoise);
+    box-shadow: var(--glitch-shadow);
+  }
+  
+  /* ==========================================================================
+     Token Health Widget Styles
+     ========================================================================== */
+  .token-health-widget {
+    padding: 2rem;
+    background: var(--panel-bg);
+    border-radius: 8px;
+    box-shadow: var(--glitch-shadow);
+    position: relative;
+    z-index: 200;
+    margin-top: 2rem;
+  }
+  
+  .neon-title {
+    font-size: 2rem;
+    color: var(--accent-turquoise);
+    text-shadow: 0 0 10px var(--accent-turquoise);
+    margin-bottom: 1rem;
+    font-family: 'Space Grotesk', monospace;
+  }
+  
+  .neon-subtitle {
+    font-size: 1.2rem;
+    color: var(--accent-gray);
+    margin-bottom: 2rem;
+  }
+  
+  .health-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .health-card {
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(20, 22, 30, 0.9), rgba(45, 212, 191, 0.1));
+    border: 1px solid var(--accent-turquoise);
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .health-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.5);
+  }
+  
+  .health-card h3 {
+    font-size: 1.2rem;
+    color: var(--accent-turquoise);
+    margin-bottom: 0.5rem;
+  }
+  
+  .health-card p {
+    font-size: 0.9rem;
+    color: var(--white);
+  }
+  
+  /* ==========================================================================
+     Responsive Design
+     ========================================================================== */
+  @media (max-width: 768px) {
+    .accumulation-stats {
+      grid-template-columns: 1fr;
+    }
+  
+    .accumulation-metrics {
+      grid-template-columns: 1fr;
+    }
+  
+    .circular-progress {
+      width: 70px;
+      height: 70px;
+    }
+  
+    .accumulation-score .circular-progress {
+      width: 90px;
+      height: 90px;
+    }
+  }
+
+  /* Token Health Widget */
+.token-health {
+  background: linear-gradient(135deg, var(--panel-bg), rgba(45, 212, 191, 0.2));
+  border: 2px solid var(--accent-turquoise);
+  animation: glitchPulse 2s infinite;
+}
+
+.health-score {
+  margin-bottom: 1rem;
+}
+
+.progress-bar {
+  height: 10px;
+  background: var(--accent-gray);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+.health-reasons .tooltip {
+  cursor: pointer;
+}
+
+.health-reasons .tooltip::after {
+  content: attr(data-tooltip);
+  visibility: hidden;
+  background: var(--panel-bg);
+  color: var(--white);
+  padding: 0.5rem;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.health-reasons .tooltip:hover::after {
+  visibility: visible;
+  opacity: 1;
+}
+
+@keyframes glitchPulse {
+  0% { border-color: var(--accent-turquoise); }
+  50% { border-color: var(--accent-purple); }
+  100% { border-color: var(--accent-turquoise); }
+}

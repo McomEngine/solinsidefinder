@@ -1,0 +1,17 @@
+/* styles/index.css */
+@import './globals.css';
+@import './components.css';
+@import './navbar.css';
+@import './hero.css';
+@import './rug-check.css';
+@import './token-battle.css';
+@import './timeline.css';
+@import './insiders.css';
+@import './bubble-map.css';
+@import './accumulation.css';
+@import './followed-wallets.css';
+@import './price-simulation.css';
+@import './wallet-activity.css';
+@import './News.css';
+@import './profile.css';
+@import './healthwidget.css';

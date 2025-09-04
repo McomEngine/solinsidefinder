@@ -1,0 +1,61 @@
+/* styles/followed-wallets.css */
+/* ==========================================================================
+   Followed Wallets Widget Styles
+   ========================================================================== */
+   .followed-wallets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .followed-wallet-card {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(20, 22, 30, 0.9), rgba(45, 212, 191, 0.1));
+    border: 1px solid var(--accent-gray);
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .followed-wallet-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.5);
+    border-color: var(--accent-turquoise);
+  }
+  
+  .wallet-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .wallet-address {
+    font-size: 1rem;
+    color: var(--accent-turquoise);
+    text-decoration: none;
+  }
+  
+  .unfollow-button {
+    background: linear-gradient(45deg, var(--accent-purple), var(--neon-red));
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    font-family: 'Space Grotesk', monospace;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .unfollow-button:hover {
+    background: linear-gradient(45deg, var(--accent-turquoise), var(--neon-yellow));
+    color: var(--bg-dark);
+    box-shadow: 0 0 15px rgba(45, 212, 191, 0.6);
+    transform: scale(1.05);
+  }
+  
+  .unfollow-button:active {
+    transform: scale(0.95);
+  }

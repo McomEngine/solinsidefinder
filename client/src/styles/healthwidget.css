@@ -1,0 +1,275 @@
+/* Genel container stilleri */
+.token-health-widget {
+    background-color: #1a202c; /* bg-gray-900 */
+    color: #ffffff; /* text-white */
+    padding: 24px; /* p-6 */
+    border-radius: 8px; /* rounded-lg */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
+    max-width: 896px; /* max-w-4xl */
+    margin: 0 auto; /* mx-auto */
+  }
+  
+  /* Başlık */
+  .token-health-widget h2 {
+    font-size: 1.5rem; /* text-2xl */
+    font-weight: 700; /* font-bold */
+    margin-bottom: 24px; /* mb-6 */
+  }
+  
+  /* Hata mesajı */
+  .error-message {
+    background-color: rgba(239, 68, 68, 0.2); /* bg-red-600/20 */
+    border: 1px solid #ef4444; /* border-red-500 */
+    color: #fecaca; /* text-red-200 */
+    padding: 16px; /* p-4 */
+    border-radius: 8px; /* rounded-lg */
+    margin-bottom: 24px; /* mb-6 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .error-message button {
+    background-color: #ef4444; /* bg-red-500 */
+    color: #ffffff; /* text-white */
+    padding: 4px 12px; /* px-3 py-1 */
+    border-radius: 4px; /* rounded */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .error-message button:hover {
+    background-color: #dc2626; /* hover:bg-red-600 */
+  }
+  
+  .error-message .close-button {
+    color: #fecaca; /* text-red-200 */
+    background: none;
+    padding: 0;
+  }
+  
+  .error-message .close-button:hover {
+    color: #f87171; /* hover:text-red-100 */
+  }
+  
+  /* Yükleme animasyonu */
+  .loading-spinner {
+    width: 32px; /* w-8 */
+    height: 32px; /* h-8 */
+    border: 4px solid #14b8a6; /* border-teal-500 */
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 24px; /* mb-6 */
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Token kartı */
+  .token-card {
+    background-color: #2d3748; /* bg-gray-800 */
+    padding: 24px; /* p-6 */
+    border-radius: 8px; /* rounded-lg */
+    margin-bottom: 24px; /* mb-6 */
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .token-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .token-card a {
+    color: #2dd4bf; /* text-teal-400 */
+    text-decoration: none;
+  }
+  
+  .token-card a:hover {
+    text-decoration: underline;
+  }
+  
+  .token-card .copy-button {
+    color: #a0aec0; /* text-gray-400 */
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  
+  .token-card .copy-button:hover {
+    color: #2dd4bf; /* hover:text-teal-400 */
+  }
+  
+  .token-card .copy-tooltip {
+    font-size: 0.875rem; /* text-sm */
+    color: #a0aec0; /* text-gray-400 */
+  }
+  
+  /* Sağlık puanı progress bar */
+  .circular-progressbar {
+    width: 80px; /* w-20 */
+    height: 80px; /* h-20 */
+  }
+  
+  .circular-progressbar .CircularProgressbar-text {
+    fill: #ffffff; /* text-white */
+    font-size: 20px;
+    dominant-baseline: middle;
+    text-anchor: middle;
+  }
+  
+  .circular-progressbar .CircularProgressbar-trail {
+    stroke: #2d3748; /* trailColor: #2d3748 */
+  }
+  
+  .circular-progressbar .CircularProgressbar-path {
+    transition: stroke 0.3s;
+  }
+  
+  /* İçeriden bilgi yoğunluğu bar */
+  .insider-intensity-bar {
+    width: 100%;
+    background-color: #4b5563; /* bg-gray-700 */
+    height: 8px; /* h-2 */
+    border-radius: 9999px; /* rounded-full */
+    overflow: hidden;
+  }
+  
+  .insider-intensity-bar .progress {
+    height: 100%;
+    border-radius: 9999px; /* rounded-full */
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .insider-intensity-bar .progress.green {
+    background-color: #14b8a6; /* bg-teal-500 */
+  }
+  
+  .insider-intensity-bar .progress.yellow {
+    background-color: #ecc94b; /* bg-yellow-500 */
+  }
+  
+  .insider-intensity-bar .progress.red {
+    background-color: #ef4444; /* bg-red-500 */
+  }
+  
+  .insider-intensity-bar .progress.gray {
+    background-color: #6b7280; /* bg-gray-500 */
+  }
+  
+  /* Metrikler */
+  .metrics {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px; /* mb-4 */
+  }
+  
+  .metrics .metric {
+    display: flex;
+    align-items: center;
+    color: #2dd4bf; /* text-teal-400 */
+  }
+  
+  .metrics .metric svg {
+    margin-right: 8px; /* mr-2 */
+  }
+  
+  /* Sekmeler */
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid #4b5563; /* border-gray-700 */
+    margin-bottom: 16px; /* mb-4 */
+  }
+  
+  .tab-button {
+    padding: 8px 16px; /* px-4 py-2 */
+    color: #a0aec0; /* text-gray-400 */
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s, border-bottom 0.2s;
+  }
+  
+  .tab-button.active {
+    color: #2dd4bf; /* text-teal-400 */
+    border-bottom: 2px solid #2dd4bf; /* border-b-2 border-teal-500 */
+  }
+  
+  /* Token listesi */
+  .token-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px; /* gap-4 */
+  }
+  
+  @media (min-width: 768px) {
+    .token-grid {
+      grid-template-columns: 1fr 1fr; /* md:grid-cols-2 */
+    }
+  }
+  
+  .token-grid .token-card {
+    padding: 16px; /* p-4 */
+  }
+  
+  .token-grid .token-card .circular-progressbar {
+    width: 64px; /* w-16 */
+    height: 64px; /* h-16 */
+  }
+  
+  /* Modal */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* bg-black/50 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+  
+  .modal-content {
+    background-color: #2d3748; /* bg-gray-800 */
+    padding: 24px; /* p-6 */
+    border-radius: 8px; /* rounded-lg */
+    max-width: 512px; /* max-w-lg */
+    width: 100%;
+  }
+  
+  .modal-content h3 {
+    font-size: 1.25rem; /* text-xl */
+    font-weight: 700; /* font-bold */
+    margin-bottom: 16px; /* mb-4 */
+  }
+  
+  .modal-content p {
+    margin-bottom: 8px; /* mb-2 */
+  }
+  
+  .modal-content ul {
+    list-style: disc;
+    padding-left: 20px;
+    margin-bottom: 16px; /* mb-4 */
+    font-size: 0.875rem; /* text-sm */
+  }
+  
+  .modal-content button {
+    background-color: #14b8a6; /* bg-teal-500 */
+    color: #ffffff; /* text-white */
+    padding: 8px 16px; /* px-4 py-2 */
+    border-radius: 4px; /* rounded */
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .modal-content button:hover {
+    background-color: #0d9488; /* hover:bg-teal-600 */
+  }

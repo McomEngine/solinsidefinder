@@ -1,0 +1,122 @@
+/* styles/wallet-activity.css */
+/* ==========================================================================
+   Wallet Activity Panel Styles
+   ========================================================================== */
+   .wallet-activity-panel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 350px;
+    height: 100vh;
+    background: #1a1a1a;
+    border-left: 1px solid #4a4a4a;
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 1000;
+    color: #e2e8f0;
+  }
+  
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .close-button {
+    background: none;
+    border: none;
+    color: #e2e8f0;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .transaction-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .transaction-item {
+    padding: 10px;
+    border-bottom: 1px solid #4a4a4a;
+  }
+  
+  .transaction-item.buy {
+    background: rgba(0, 255, 0, 0.1);
+  }
+  
+  .transaction-item.sell {
+    background: rgba(255, 0, 0, 0.1);
+  }
+  
+  .transaction-item.loss {
+    border-left: 3px solid #ff4500;
+  }
+  
+  .transaction-details p {
+    margin: 5px 0;
+  }
+  
+  .timestamp {
+    font-size: 12px;
+    color: #a3a3a3;
+  }
+  
+  .profit.positive {
+    color: #00ff00;
+  }
+  
+  .profit.negative {
+    color: #ff4500;
+  }
+  
+  .trending-coins-table {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .trending-coins-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  
+  .trending-coins-table th,
+  .trending-coins-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .trending-coins-table th {
+    background: #1a1a1a;
+    color: #e2e8f0;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+  
+  .trending-coins-table td {
+    color: #e2e8f0;
+  }
+  
+  .trending-coins-table .positive {
+    color: #00ff00;
+  }
+  
+  .trending-coins-table .negative {
+    color: #ff0000;
+  }
+  
+  .trending-coins-table .small-button {
+    padding: 6px 12px;
+    font-size: 14px;
+    background: #2a2a2a;
+    border: 1px solid var(--accent-turquoise);
+    color: var(--accent-turquoise);
+  }
+  
+  .trending-coins-table .small-button:hover {
+    background: var(--accent-turquoise);
+    color: #000;
+  }

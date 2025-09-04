@@ -1,0 +1,3857 @@
+@import '@solana/wallet-adapter-react-ui/styles.css';
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   Base CSS Variables: Dystopian Dream Palette
+   ========================================================================== */
+:root {
+  --bg-dark: #0c0e14;
+  --accent-turquoise: #2dd4bf;
+  --accent-purple: #6b7280;
+  --accent-gray: #4b5563;
+  --white: #e2e8f0;
+  --glitch-shadow: 0 0 10px rgba(45, 212, 191, 0.3);
+  --panel-bg: rgba(20, 22, 30, 0.7);
+  --border: #2dd4bf;
+  --data-flow: rgba(45, 212, 191, 0.2);
+  --dark-gray: #1f2937;
+  --neon-red: #ff4655;
+  --neon-yellow: #ffc107;
+  --neon-green: #00ff00;
+}
+
+/* ==========================================================================
+   General Body Styles: Digital Dream World
+   ========================================================================== */
+body {
+  background: var(--bg-dark);
+  color: var(--white);
+  font-family: 'IBM Plex Mono', 'Space Grotesk', monospace;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, var(--data-flow));
+  animation: dataFlow 20s linear infinite;
+  z-index: -2;
+  opacity: 0.4;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0 50 H100 M50 0 V100" stroke="%232dd4bf" stroke-opacity="0.2"/%3E%3C/svg%3E');
+  animation: glitchGrid 15s ease-in-out infinite;
+  z-index: -3;
+  opacity: 0.3;
+}
+
+/* ==========================================================================
+   Dystopian Panel Styles
+   ========================================================================== */
+.dystopian-panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--glitch-shadow);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 200; /* Navbar'dan düşük z-index */
+}
+
+.dystopian-panel:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 20px rgba(45, 212, 191, 0.5);
+}
+
+.dystopian-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.3), transparent);
+  animation: glitchScan 5s infinite;
+  opacity: 0.5;
+}
+
+/* ==========================================================================
+   Dystopian Button Styles
+   ========================================================================== */
+.dystopian-button {
+  background: linear-gradient(45deg, var(--accent-turquoise), var(--accent-purple));
+  border: none;
+  border-radius: 6px;
+  color: var(--white);
+  padding: 0.8rem 1.5rem;
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.dystopian-button:hover {
+  background: var(--accent-turquoise);
+  box-shadow: var(--glitch-shadow);
+  transform: scale(1.05);
+}
+
+.dystopian-button:active {
+  transform: scale(0.95);
+}
+
+.dystopian-button:disabled {
+  background: var(--accent-gray);
+  color: rgba(255, 255, 255, 0.4);
+  cursor: not-allowed;
+}
+
+.dystopian-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,%3Csvg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"%3E%3Crect width="10" height="10" fill="%232dd4bf" fill-opacity="0.2"/%3E%3C/svg%3E');
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.dystopian-button:hover::after {
+  opacity: 0.3;
+  animation: glitchFlicker 0.2s infinite;
+}
+
+/* Wallet button */
+.wallet-button--primary {
+  background: var(--accent-turquoise);
+  color: var(--bg-dark);
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  box-shadow: var(--glitch-shadow);
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  white-space: nowrap;
+  position: relative;
+  z-index: 1001;
+}
+
+/* Cüzdan bağlandıktan sonra açılan butonlar için dropdown menüsü */
+.wallet-button--primary.connected {
+  position: relative;
+}
+
+.wallet-button--primary.connected::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 6px;
+  border: 1px solid var(--accent-turquoise);
+  animation: glitchPulse 1.5s infinite;
+}
+
+/* Dropdown menüsü (örneğin Disconnect butonu için) */
+.wallet-button--primary .wallet-adapter-dropdown {
+  position: absolute;
+  top: calc(100% + 5px); /* Butonun altına biraz boşluk bırakır */
+  right: 0;
+  background: var(--panel-bg);
+  border: 1px solid var(--accent-turquoise);
+  border-radius: 6px;
+  padding: 0.5rem;
+  box-shadow: var(--glitch-shadow);
+  z-index: 1001;
+  min-width: 150px;
+  display: none; /* Varsayılan olarak gizli */
+}
+
+/* Cüzdan bağlandığında dropdown'ı görünür yap */
+.wallet-button--primary.connected .wallet-adapter-dropdown {
+  display: block; /* Cüzdan bağlandığında görünür */
+}
+
+/* Dropdown içindeki butonlar */
+.wallet-button--primary .wallet-adapter-dropdown button {
+  background: var(--accent-purple);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  margin: 0.2rem 0;
+  width: 100%;
+  text-align: left;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.wallet-button--primary .wallet-adapter-dropdown button:hover {
+  background: var(--accent-turquoise);
+  color: var(--bg-dark);
+}
+
+/* ==========================================================================
+   Input Styles
+   ========================================================================== */
+.dystopian-input {
+  background: var(--panel-bg);
+  border: 1px solid var(--accent-turquoise);
+  border-radius: 6px;
+  padding: 0.8rem;
+  color: var(--white);
+  font-family: 'IBM Plex Mono', monospace;
+  transition: all 0.3s ease;
+}
+
+.dystopian-input:focus {
+  outline: none;
+  border-color: var(--accent-turquoise);
+  box-shadow: var(--glitch-shadow);
+}
+
+.dystopian-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.dystopian-input:focus::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.2), transparent);
+  animation: glitchScan 3s infinite;
+  opacity: 0.4;
+}
+
+/* ==========================================================================
+   Hero Section: Dystopian Entry
+   ========================================================================== */
+.hero-section {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg-dark);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, var(--data-flow), transparent);
+  animation: glitchWave 10s ease-in-out infinite;
+  opacity: 0.5;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 0;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 700;
+  font-family: 'Space Grotesk', monospace;
+  color: var(--white);
+  text-shadow: var(--glitch-shadow);
+  margin: 0 0 1.5rem 0;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.code-char {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.code-char:hover {
+  transform: translateY(-5px);
+  text-shadow: 0 0 15px var(--accent-turquoise);
+  animation: glitchChar 0.3s infinite;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: var(--accent-gray);
+  margin: 0 0 2rem 0;
+  text-shadow: 0 0 5px var(--accent-turquoise);
+  animation: fadeIn 1.5s ease forwards;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.energy-button {
+  background: var(--accent-turquoise);
+  color: var(--bg-dark);
+  padding: 1rem 3rem;
+  border-radius: 6px;
+  font-size: 1.5rem;
+  font-family: 'Space Grotesk', monospace;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--glitch-shadow);
+}
+
+.energy-button:hover {
+  background: var(--accent-purple);
+  box-shadow: 0 0 20px rgba(45, 212, 191, 0.5);
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   Navbar: Dystopian Control Panel
+   ========================================================================== */
+   .cyber-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--panel-bg);
+    border-bottom: 1px solid var(--accent-turquoise);
+    padding: 1rem 1.5rem;
+    min-height: 60px;
+    box-sizing: border-box;
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: visible !important; /* Menü taşmasını engellemez */
+  }
+
+.cyber-navbar.scrolled {
+  background: linear-gradient(180deg, var(--panel-bg), var(--bg-dark));
+  box-shadow: var(--glitch-shadow);
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 1rem;
+}
+
+.cyber-title {
+  font-size: 1.5rem;
+  color: var(--accent-turquoise);
+  text-shadow: var(--glitch-shadow);
+  cursor: pointer;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.cyber-title:hover {
+  color: var(--white);
+  text-shadow: 0 0 15px var(--accent-turquoise);
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav-button {
+  background: transparent;
+  border: none;
+  color: var(--accent-gray);
+  font-size: 1.1rem;
+  font-family: 'IBM Plex Mono', monospace;
+  cursor: pointer;
+  padding: 0.6rem 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+  color: rgba(45, 212, 191, 0.5);
+  text-shadow: 0 0 10px rgba(45, 212, 191, 0.7);
+  background: transparent;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.nav-button.active {
+  color: var(--accent-turquoise);
+  background: rgba(45, 212, 191, 0.2);
+}
+
+.hamburger-menu {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--accent-turquoise);
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 12px;
+  z-index: 1100;
+  pointer-events: auto;
+  transition: transform 0.3s ease;
+}
+
+.hamburger-menu:hover {
+  transform: scale(1.1);
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Wallet button navbar içinde */
+.navbar-container .wallet-button--primary {
+  margin-left: 0.5rem; /* Başlığın hemen sağına hizalar */
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  background: linear-gradient(45deg, var(--accent-turquoise), var(--accent-purple));
+  border: 1px solid var(--accent-turquoise);
+  border-radius: 6px;
+  color: var(--white);
+  box-shadow: var(--glitch-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar-container .wallet-button--primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(45, 212, 191, 0.5);
+}
+
+.navbar-container .wallet-button--primary.connected {
+  background: linear-gradient(45deg, var(--accent-purple), var(--accent-turquoise));
+}
+
+/* ==========================================================================
+   General Container
+   ========================================================================== */
+.cyber-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 90px 2rem 2rem; /* Navbar yüksekliğine göre padding-top artırıldı */
+  z-index: 200; /* Navbar'dan düşük z-index */
+}
+
+/* ==========================================================================
+   Search Section
+   ========================================================================== */
+.search-container {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  z-index: 200;
+}
+
+.cyber-input {
+  width: 350px;
+}
+
+.cyber-button {
+  background: var(--accent-turquoise);
+  color: var(--bg-dark);
+  padding: 0.8rem 2rem;
+  border-radius: 6px;
+}
+
+.error-text {
+  color: var(--accent-purple);
+  text-align: center;
+  margin: 1.5rem 0;
+  text-shadow: var(--glitch-shadow);
+}
+
+/* ==========================================================================
+   Content Grid
+   ========================================================================== */
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+  z-index: 200;
+}
+
+.cyber-widget {
+  padding: 1.5rem;
+  z-index: 200;
+}
+
+.widget-title {
+  font-size: 1.5rem;
+  color: var(--accent-turquoise);
+  margin-bottom: 1.5rem;
+  text-shadow: var(--glitch-shadow);
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.dexscreener-frame {
+  width: 100%;
+  height: 600px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: var(--glitch-shadow);
+}
+
+/* ==========================================================================
+   Favorite Tokens
+   ========================================================================== */
+.favorite-tokens-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.favorite-token-card {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.token-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.token-address {
+  font-size: 1rem;
+  color: var(--accent-turquoise);
+}
+
+.token-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.progress-bar {
+  width: 140px;
+  height: 8px;
+  background: var(--accent-gray);
+  border-radius: 4px;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+.bg-accent-turquoise { background: var(--accent-turquoise); }
+.bg-accent-purple { background: var(--accent-purple); }
+.bg-accent-gray { background: var(--accent-gray); }
+.bg-dark-gray { background: var(--dark-gray); }
+.bg-neon-red { background: var(--neon-red); }
+.bg-neon-yellow { background: var(--neon-yellow); }
+.bg-neon-green { background: var(--neon-green); }
+
+.remove-token-button {
+  background: linear-gradient(45deg, var(--accent-purple), var(--neon-red));
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-family: 'Space Grotesk', monospace;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.remove-token-button::before {
+  content: '×';
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.remove-token-button:hover {
+  background: linear-gradient(45deg, var(--accent-turquoise), var(--neon-yellow));
+  color: var(--bg-dark);
+  box-shadow: 0 0 15px rgba(45, 212, 191, 0.6);
+  transform: translateY(-2px);
+}
+
+.remove-token-button:active {
+  transform: translateY(0);
+}
+
+.remove-token-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.3s ease;
+}
+
+.remove-token-button:hover::after {
+  left: 100%;
+}
+
+/* ==========================================================================
+   Transaction List
+   ========================================================================== */
+.transaction-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.transaction-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.transaction-item.buy {
+  border-left: 4px solid var(--accent-turquoise);
+}
+
+.transaction-item.sell {
+  border-left: 4px solid var(--accent-purple);
+}
+
+.transaction-time {
+  font-size: 0.9rem;
+  color: var(--accent-gray);
+}
+
+.wallet-link {
+  color: var(--accent-turquoise);
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   Accumulation Widget Styles
+   ========================================================================== */
+.accumulation-widget {
+  padding: 1.5rem;
+  position: relative;
+  z-index: 200;
+}
+
+.accumulation-card {
+  margin-top: 1rem;
+  padding: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.accumulation-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glitch-shadow);
+}
+
+.accumulation-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.metric-item span {
+  font-size: 0.9rem;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.circular-progress {
+  width: 80px;
+  height: 80px;
+}
+
+.accumulation-score .circular-progress {
+  width: 100px;
+  height: 100px;
+}
+
+.score-value {
+  color: var(--accent-turquoise);
+  font-weight: 700;
+}
+
+.widget-subtitle {
+  font-size: 1rem;
+  color: var(--accent-gray);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background: var(--panel-bg);
+  color: var(--white);
+  text-align: center;
+  border-radius: 6px;
+  padding: 0.5rem;
+  position: absolute;
+  z-index: 1001;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  box-shadow: var(--glitch-shadow);
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+.accumulation-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.no-data {
+  color: var(--accent-gray);
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* ==========================================================================
+   Token Health Widget Styles
+   ========================================================================== */
+   .token-health-widget {
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--panel-bg), rgba(45, 212, 191, 0.1));
+    border-radius: 12px;
+    box-shadow: var(--glitch-shadow);
+    margin-top: 2rem;
+    z-index: 200;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .token-health-widget::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.2), transparent);
+    animation: glitchScan 5s infinite;
+    opacity: 0.5;
+  }
+  
+  /* Neon Başlık ve Alt Başlık */
+  .neon-title {
+    font-size: 2.2rem;
+    font-family: 'Space Grotesk', monospace;
+    color: var(--accent-turquoise);
+    text-shadow: 0 0 10px var(--accent-turquoise), 0 0 20px var(--accent-purple);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .neon-subtitle {
+    font-size: 1.5rem;
+    font-family: 'Space Grotesk', monospace;
+    color: var(--white);
+    text-shadow: 0 0 5px var(--accent-turquoise);
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  /* Sağlık Kartları */
+  .health-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .health-card {
+    background: linear-gradient(135deg, rgba(20, 22, 30, 0.9), rgba(45, 212, 191, 0.05));
+    border: 1px solid var(--accent-gray);
+    border-radius: 10px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .health-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.6), 0 0 30px rgba(45, 212, 191, 0.3);
+    border-color: var(--accent-turquoise);
+  }
+  
+  .health-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(45, 212, 191, 0.2) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .health-card:hover::before {
+    opacity: 0.4;
+  }
+  
+  .neon-border-red {
+    border: 2px solid var(--neon-red);
+    box-shadow: 0 0 15px rgba(255, 69, 0, 0.5);
+  }
+  
+  .neon-border-yellow {
+    border: 2px solid var(--neon-yellow);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+  }
+  
+  .warning-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: var(--neon-red);
+    text-shadow: 0 0 5px var(--neon-red);
+    animation: glitchFlicker 0.3s infinite;
+  }
+  
+  .health-card-header {
+    margin-bottom: 1.2rem;
+  }
+  
+  .health-card-header .wallet-link {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-turquoise);
+    text-decoration: none;
+    transition: text-shadow 0.3s ease;
+  }
+  
+  .health-card-header .wallet-link:hover {
+    text-shadow: 0 0 10px var(--accent-turquoise);
+  }
+  
+  .health-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .health-score,
+  .insider-intensity {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .health-score p,
+  .insider-intensity p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--white);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--accent-gray);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+  }
+  
+  .progress-fill {
+    height: 100%;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px currentColor;
+  }
+  
+  .metrics-summary {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .metric-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--white);
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 0.5rem;
+    background: rgba(45, 212, 191, 0.1);
+    border-radius: 6px;
+    transition: background 0.3s ease;
+  }
+  
+  .metric-item:hover {
+    background: rgba(45, 212, 191, 0.2);
+  }
+  
+  .metric-icon {
+    color: var(--accent-turquoise);
+    font-size: 1.2rem;
+  }
+  
+  .mini-radar {
+    width: 100%;
+    height: 150px;
+    margin-top: 1.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 0.5rem;
+  }
+  
+  /* Portföy Özeti */
+  .portfolio-stats {
+    padding: 1.5rem;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--panel-bg), rgba(45, 212, 191, 0.05));
+    border: 1px solid var(--accent-turquoise);
+    box-shadow: var(--glitch-shadow);
+    margin-bottom: 2rem;
+  }
+  
+  .portfolio-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 1rem;
+    color: var(--white);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  
+  .stat-item span {
+    font-size: 0.9rem;
+    color: var(--accent-gray);
+  }
+  
+  /* Karşılaştırma Bölümü */
+  .compare-section {
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--panel-bg), rgba(45, 212, 191, 0.05));
+    border-radius: 10px;
+    box-shadow: var(--glitch-shadow);
+    margin-top: 2rem;
+  }
+  
+  .compare-section .radar-chart {
+    max-height: 400px;
+    width: 100%;
+  }
+  
+  /* Modal Stilleri */
+  .neon-modal {
+    background: linear-gradient(135deg, var(--panel-bg), rgba(45, 212, 191, 0.1));
+    border: 2px solid var(--accent-turquoise);
+    box-shadow: 0 0 20px var(--accent-turquoise), 0 0 40px var(--accent-purple);
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 2rem;
+    border-radius: 12px;
+    position: relative;
+  }
+  
+  .neon-modal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.3), transparent);
+    animation: glitchScan 5s infinite;
+    opacity: 0.5;
+  }
+  
+  .modal-list {
+    list-style: disc;
+    padding-left: 1.5rem;
+    color: var(--white);
+    font-family: 'IBM Plex Mono', monospace;
+    margin-bottom: 1rem;
+  }
+  
+  .modal-list li {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Mobil Düzenlemeler */
+  @media (max-width: 640px) {
+    .health-card {
+      padding: 1rem;
+    }
+  
+    .health-card-header .wallet-link {
+      font-size: 1rem;
+    }
+  
+    .health-score p,
+    .insider-intensity p {
+      font-size: 0.95rem;
+    }
+  
+    .metrics-summary {
+      grid-template-columns: 1fr;
+    }
+  
+    .mini-radar {
+      height: 120px;
+    }
+  
+    .portfolio-stats-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .compare-section .radar-chart {
+      max-height: 300px;
+    }
+  }
+
+/* ==========================================================================
+   Rug Check Styles
+   ========================================================================== */
+.rug-check-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  background: var(--panel-bg);
+  border-radius: 8px;
+  box-shadow: var(--glitch-shadow);
+  z-index: 200;
+}
+
+.rug-check-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.rug-check-subtitle {
+  font-size: 1rem;
+  color: var(--accent-gray);
+  margin-bottom: 1rem;
+}
+
+.rug-check-summary {
+  padding: 1.5rem;
+  background: var(--panel-bg);
+  border-radius: 8px;
+  box-shadow: var(--glitch-shadow);
+  margin-bottom: 2rem;
+}
+
+.summary-title {
+  font-size: 1.3rem;
+  color: var(--accent-turquoise);
+  margin-bottom: 1rem;
+}
+
+.risk-score {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.risk-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background: var(--panel-bg);
+  box-shadow: var(--glitch-shadow);
+  flex: 1;
+  min-width: 250px;
+}
+
+.risk-indicator.safe {
+  border: 2px solid var(--accent-turquoise);
+}
+
+.risk-indicator.warning {
+  border: 2px solid var(--accent-gray);
+}
+
+.risk-indicator.danger {
+  border: 2px solid var(--accent-purple);
+}
+
+.risk-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--white);
+  text-shadow: var(--glitch-shadow);
+}
+
+.risk-bar {
+  width: 200px;
+  height: 10px;
+  background: var(--accent-gray);
+  border-radius: 5px;
+}
+
+.risk-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.5s ease;
+}
+
+.risk-description {
+  font-size: 0.9rem;
+  color: var(--white);
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.rug-check-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.rug-check-item {
+  padding: 1rem;
+  border-radius: 8px;
+  background: var(--panel-bg);
+  box-shadow: var(--glitch-shadow);
+  transition: transform 0.3s ease;
+}
+
+.rug-check-item:hover {
+  transform: translateY(-4px);
+}
+
+.rug-check-item h3 {
+  font-size: 1.2rem;
+  color: var(--accent-turquoise);
+  margin-bottom: 0.5rem;
+}
+
+.rug-check-item p {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.rug-check-item .safe {
+  color: var(--accent-turquoise);
+}
+
+.rug-check-item .warning {
+  color: var(--accent-gray);
+}
+
+.rug-check-item .danger {
+  color: var(--accent-purple);
+}
+
+.rug-check-item .reason {
+  font-size: 0.9rem;
+  color: var(--accent-gray);
+  font-style: italic;
+}
+
+.insider-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.insider-table th,
+.insider-table td {
+  padding: 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid var(--accent-gray);
+}
+
+.insider-table th {
+  color: var(--accent-turquoise);
+  font-weight: 700;
+}
+
+.insider-table td {
+  font-size: 0.9rem;
+}
+
+.data-download:hover::before {
+  content: '101010';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--accent-turquoise);
+  font-size: 0.8rem;
+  animation: binaryFlow 1s linear infinite;
+}
+
+.small-button {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   Bubble Map Styles
+   ========================================================================== */
+.bubble-map-widget {
+  position: relative;
+  z-index: 200;
+  margin-top: 2rem; /* Navbar ile mesafe artırıldı */
+}
+
+.bubble-map-widget::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="10" cy="10" r="1" fill="%232dd4bf" fill-opacity="0.2"/%3E%3C/svg%3E');
+  animation: galaxyDots 10s linear infinite;
+  z-index: -1;
+}
+
+.bubble-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter-controls {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-label {
+  font-size: 0.9rem;
+  color: var(--accent-gray);
+}
+
+.bubble-slider {
+  width: 150px;
+}
+
+.filter-value {
+  font-size: 0.9rem;
+  color: var(--white);
+}
+
+.cyber-select {
+  background: var(--panel-bg);
+  border: 1px solid var(--accent-turquoise);
+  border-radius: 6px;
+  padding: 0.5rem;
+  color: var(--white);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.zoom-controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.zoom-button {
+  padding: 0.5rem 1rem;
+}
+
+.bubble-map-container {
+  position: relative;
+}
+
+.bubble-map {
+  width: 100%;
+  height: 600px;
+  border-radius: 8px;
+}
+
+.map-hint {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 0.9rem;
+  color: var(--accent-gray);
+  background: var(--panel-bg);
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.bubble-details {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 250px;
+  padding: 1rem;
+  background: linear-gradient(45deg, rgba(20, 22, 30, 0.8), rgba(45, 212, 191, 0.2));
+  border: 1px solid var(--accent-turquoise);
+  border-radius: 8px;
+  box-shadow: var(--glitch-shadow);
+  z-index: 200;
+}
+
+.bubble-details h3 {
+  font-size: 1.2rem;
+  color: var(--accent-turquoise);
+  margin-bottom: 1rem;
+}
+
+.bubble-details p {
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+
+.bubble-details span {
+  color: var(--accent-gray);
+}
+
+.bubble-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.bubble-actions .follow {
+  background: var(--accent-turquoise);
+}
+
+.bubble-actions .unfollow {
+  background: var(--accent-purple);
+}
+
+.bubble-legend {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 1rem;
+  background: var(--panel-bg);
+  border-radius: 8px;
+  box-shadow: var(--glitch-shadow);
+  z-index: 200;
+}
+
+.bubble-legend h3 {
+  font-size: 1rem;
+  color: var(--accent-turquoise);
+  margin-bottom: 0.5rem;
+}
+
+.bubble-legend p {
+  font-size: 0.9rem;
+  margin: 0.3rem 0;
+}
+
+.legend-color {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+/* Tab sistemi için stiller */
+.widget-tabs {
+  padding: 20px;
+  border-radius: 8px;
+  background: var(--dystopian-bg, #1a1a1a);
+  margin-top: 20px;
+}
+
+.tab-header {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap; /* Mobil cihazlarda sekmelerin alta kaymasını sağlar */
+}
+
+.tab-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  background: var(--dystopian-button-bg, #2a2a2a);
+  color: var(--dystopian-text, #e2e8f0);
+  border: 1px solid var(--accent-gray, #4a4a4a);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+  background: var(--accent-gray, #4a4a4a);
+}
+
+.tab-button.active {
+  background: var(--accent-turquoise, #00f2ea);
+  color: #000;
+  border-color: var(--accent-turquoise, #00f2ea);
+}
+
+.tab-content {
+  min-height: 200px; /* İçerik değişiminde sıçramayı önler */
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobil cihazlar için düzenlemeler */
+@media (max-width: 768px) {
+  .tab-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .tab-button {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+  }
+}
+
+/* ==========================================================================
+   Timeline Styles
+   ========================================================================== */
+.timeline-widget {
+  margin-bottom: 2rem;
+  margin-top: 2rem; /* Navbar ile mesafe artırıldı */
+  z-index: 200;
+}
+
+.timeline-controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.zoom-button {
+  background: var(--accent-gray);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.zoom-button:hover {
+  background: var(--accent-turquoise);
+  box-shadow: var(--glitch-shadow);
+  transform: scale(1.05);
+}
+
+.zoom-button:active {
+  transform: scale(0.95);
+}
+
+.zoom-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,%3Csvg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"%3E%3Crect width="10" height="10" fill="%232dd4bf" fill-opacity="0.2"/%3E%3C/svg%3E');
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.zoom-button:hover::after {
+  opacity: 0.3;
+  animation: glitchFlicker 0.2s infinite;
+}
+
+.timeline-summary {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--white);
+  background: var(--panel-bg);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: var(--glitch-shadow);
+}
+
+.timeline-summary p {
+  margin: 0;
+}
+
+.timeline-container {
+  position: relative;
+  height: 400px;
+  background: var(--panel-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: var(--glitch-shadow);
+  overflow: hidden;
+}
+
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.3), transparent);
+  animation: glitchScan 5s infinite;
+  opacity: 0.5;
+}
+
+.timeline-table {
+  margin-top: 1.5rem;
+  overflow-x: auto;
+}
+
+.timeline-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.timeline-table th,
+.timeline-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--accent-gray);
+}
+
+.timeline-table th {
+  background: rgba(45, 212, 191, 0.2);
+  color: var(--accent-turquoise);
+  font-weight: 700;
+}
+
+.timeline-table td {
+  color: var(--white);
+}
+
+.timeline-table tr.buy td {
+  color: var(--accent-turquoise);
+}
+
+.timeline-table tr.sell td {
+  color: var(--accent-purple);
+}
+
+.timeline-table .wallet-link {
+  color: var(--accent-turquoise);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.timeline-table .wallet-link:hover {
+  text-decoration: underline;
+  text-shadow: var(--glitch-shadow);
+}
+
+/* Modal Stilleri */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  color: #fff;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.modal-button {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+/* Filtre Paneli */
+.filter-panel {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.filter-panel select,
+.filter-panel input {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Timeline Container */
+.timeline-container {
+  width: 100%;
+  max-height: 400px;
+}
+
+.timeline-table {
+  overflow-x: auto;
+}
+
+.timeline-controls {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.timeline-controls button {
+  flex: 1;
+}
+
+/* Modal Stilleri */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  color: #fff;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.modal-button {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+/* Filtre Paneli */
+.filter-panel {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.filter-panel select,
+.filter-panel input {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Timeline ve Volume Container */
+.timeline-container,
+.volume-container {
+  width: 100%;
+  max-height: 400px;
+  margin-bottom: 1rem;
+}
+
+.timeline-table {
+  overflow-x: auto;
+}
+
+.timeline-controls {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.timeline-controls button {
+  flex: 1;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+  .timeline-container,
+  .volume-container {
+    max-height: 300px;
+  }
+
+  .timeline-controls {
+    flex-direction: column;
+  }
+
+  .timeline-controls button {
+    width: 100%;
+  }
+
+  .filter-panel {
+    flex-direction: column;
+  }
+
+  .filter-panel select,
+  .filter-panel input {
+    width: 100%;
+  }
+
+  .volume-container .chartjs-render-chart {
+    font-size: 10px; /* Mobil için daha küçük etiketler */
+  }
+}
+
+/* Erişilebilirlik */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* ==========================================================================
+   Insiders (Wallets) Styles
+   ========================================================================== */
+.insiders-section {
+  margin-bottom: 2rem;
+  z-index: 200;
+}
+
+.insider-controls {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  background: var(--panel-bg);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: var(--glitch-shadow);
+}
+
+.insider-controls input,
+.insider-controls select {
+  background: var(--panel-bg);
+  border: 1px solid var(--accent-turquoise);
+  border-radius: 6px;
+  padding: 0.8rem;
+  color: var(--white);
+  font-family: 'IBM Plex Mono', monospace;
+  transition: all 0.3s ease;
+}
+
+.insider-controls input:focus,
+.insider-controls select:focus {
+  outline: none;
+  border-color: var(--accent-turquoise);
+  box-shadow: var(--glitch-shadow);
+}
+
+.insider-controls input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.insider-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.insider-table th,
+.insider-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--accent-gray);
+}
+
+.insider-table th {
+  background: rgba(45, 212, 191, 0.2);
+  color: var(--accent-turquoise);
+  font-weight: 700;
+}
+
+.insider-table td {
+  color: var(--white);
+}
+
+.insider-table .follow {
+  background: var(--accent-turquoise);
+  color: var(--bg-dark);
+}
+
+.insider-table .unfollow {
+  background: var(--accent-purple);
+  color: var(--white);
+}
+
+.insider-table .small-button {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  border-radius: 6px;
+}
+
+.insider-table .small-button:hover {
+  box-shadow: var(--glitch-shadow);
+  transform: scale(1.05);
+}
+
+.insider-table .small-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,%3Csvg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"%3E%3Crect width="10" height="10" fill="%232dd4bf" fill-opacity="0.2"/%3E%3C/svg%3E');
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.insider-table .small-button:hover::after {
+  opacity: 0.3;
+  animation: glitchFlicker 0.2s infinite;
+}
+
+.insider-card {
+  background: var(--panel-bg);
+  border: 1px solid var(--accent-gray);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.insider-card:hover {
+  border-color: var(--accent-turquoise);
+  box-shadow: var(--glitch-shadow);
+  transform: translateY(-4px);
+}
+
+.insider-card.expanded {
+  background: rgba(45, 212, 191, 0.1);
+  border-color: var(--accent-turquoise);
+}
+
+/* ==========================================================================
+   Loading Spinner
+   ========================================================================== */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  z-index: 200;
+}
+
+.cyber-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--accent-turquoise);
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+@keyframes dataFlow {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes glitchGrid {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(10px, -10px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes glitchWave {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes glitchChar {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(2px, -2px); }
+  100% { transform: translate(-2px, 2px); }
+}
+
+@keyframes glitchScan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes glitchFlicker {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.1; }
+  100% { opacity: 0.3; }
+}
+
+@keyframes glitchPulse {
+  0% { border-color: var(--accent-turquoise); }
+  50% { border-color: var(--accent-purple); }
+  100% { border-color: var(--accent-turquoise); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes binaryFlow {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-20px); opacity: 0; }
+}
+
+@keyframes galaxyDots {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(20px, 20px); }
+}
+
+/* ==========================================================================
+   Rug Check Additional Styles
+   ========================================================================== */
+.guide-button {
+  background: var(--accent-gray);
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.rug-check-item .tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.rug-check-item .tooltip-text {
+  visibility: hidden;
+  width: 220px;
+  background: var(--panel-bg);
+  color: var(--white);
+  text-align: center;
+  border-radius: 6px;
+  padding: 0.5rem;
+  position: absolute;
+  z-index: 1001;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  box-shadow: var(--glitch-shadow);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+}
+
+.rug-check-item .tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+.risk-distribution {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background: var(--panel-bg);
+  box-shadow: var(--glitch-shadow);
+  margin-left: 2rem;
+}
+
+.risk-distribution h3 {
+  font-size: 1.2rem;
+  color: var(--accent-turquoise);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 1001;
+  padding: 20px;
+  border-radius: 8px;
+  background: var(--panel-bg);
+  border: 1px solid var(--accent-turquoise);
+}
+
+.rug-check-widget {
+  z-index: 500;
+  margin-top: 2rem; /* Navbar ile mesafe artırıldı */
+}
+
+/* ==========================================================================
+   Connect Wallet Modal Styles
+   ========================================================================== */
+.connect-wallet-modal {
+  background: var(--panel-bg);
+  border: 1px solid var(--accent-turquoise);
+  border-radius: 8px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: var(--glitch-shadow);
+  position: relative;
+  text-align: center;
+  animation: fadeIn 0.5s ease forwards;
+  z-index: 1001;
+}
+
+.connect-wallet-modal h3 {
+  font-size: 1.8rem;
+  color: var(--accent-turquoise);
+  margin-bottom: 1rem;
+  text-shadow: var(--glitch-shadow);
+}
+
+.connect-wallet-modal p {
+  font-size: 1rem;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+
+.connect-wallet-modal .modal-button {
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   Yeni Eklenen Stiller
+   ========================================================================== */
+.chart-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+
+.chart-controls .dystopian-button {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.chart-controls .dystopian-button:hover {
+  background: var(--accent-turquoise);
+  transform: scale(1.05);
+}
+
+.chart-controls .dystopian-button.active {
+  background: var(--accent-turquoise);
+  color: var(--bg-dark);
+}
+
+.heatmap-container {
+  padding: 1rem;
+  background: var(--panel-bg);
+  border-radius: 8px;
+  box-shadow: var(--glitch-shadow);
+  margin-top: 1rem;
+  z-index: 200;
+}
+
+.heatmap-container h3 {
+  font-size: 1.2rem;
+  color: var(--accent-turquoise);
+  margin-bottom: 1rem;
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+@media (max-width: 768px) {
+  .cyber-container {
+    padding: 90px 1rem 1rem;
+  }
+
+  .hero-content {
+    padding: 80px 0;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .energy-button {
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
+  }
+
+  .navbar-menu {
+    display: none;
+  }
+
+  .navbar-menu.open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: var(--panel-bg);
+    padding: 1.5rem;
+    border-radius: 0 0 8px 8px;
+    box-shadow: var(--glitch-shadow);
+    z-index: 1099;
+    height: calc(100vh - 60px);
+    align-items: center;
+  }
+
+  .nav-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .nav-button {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 6px;
+  }
+
+  .hamburger-menu {
+    display: block;
+  }
+
+  .search-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cyber-input {
+    width: 100%;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-container {
+    height: 300px;
+  }
+
+  .timeline-summary {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .timeline-table,
+  .insider-table {
+    font-size: 0.8rem;
+  }
+
+  .insider-controls {
+    flex-direction: column;
+  }
+
+  .bubble-controls {
+    flex-direction: column;
+  }
+
+  .filter-controls {
+    flex-direction: column;
+  }
+
+  .bubble-details {
+    position: static;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .bubble-legend {
+    position: static;
+    margin-top: 1rem;
+  }
+
+  .risk-score {
+    flex-direction: column;
+  }
+
+  .risk-indicator {
+    min-width: 100%;
+  }
+
+  .risk-distribution {
+    margin-left: 0;
+  }
+
+  .connect-wallet-modal {
+    padding: 1.5rem;
+  }
+
+  .connect-wallet-modal h3 {
+    font-size: 1.5rem;
+  }
+
+  .chart-controls {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .heatmap-container {
+    padding: 0.5rem;
+  }
+
+  /* Mobil için wallet button ayarları */
+  .navbar-container .wallet-button--primary {
+    margin-left: 0.3rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* ==========================================================================
+   Accumulation Page Styles
+   ========================================================================== */
+.accumulation-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.accumulation-card {
+  padding: 1.5rem;
+  border-radius: 8px;
+  background: var(--panel-bg);
+  box-shadow: var(--glitch-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.accumulation-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 20px rgba(45, 212, 191, 0.5);
+}
+
+.token-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.token-address {
+  font-size: 1rem;
+  color: var(--accent-turquoise);
+  text-decoration: none;
+}
+
+.token-address:hover {
+  text-shadow: 0 0 10px rgba(45, 212, 191, 0.7);
+}
+
+.accumulation-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.metric-item span {
+  font-size: 0.9rem;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.circular-progress {
+  width: 80px;
+  height: 80px;
+}
+
+.accumulation-score .circular-progress {
+  width: 100px;
+  height: 100px;
+}
+
+.remove-token-button {
+  background: var(--accent-purple);
+  color: var(--bg-dark);
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.remove-token-button:hover {
+  background: var(--accent-turquoise);
+  box-shadow: var(--glitch-shadow);
+}
+
+@media (max-width: 768px) {
+  .accumulation-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .accumulation-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .circular-progress {
+    width: 70px;
+    height: 70px;
+  }
+
+  .accumulation-score .circular-progress {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+/* ==========================================================================
+   Professional Badge Styles
+   ========================================================================== */
+.professional-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: transform 0.3s ease;
+}
+
+.professional-badge:hover {
+  transform: scale(1.05);
+  box-shadow: var(--glitch-shadow);
+}
+
+/* ==========================================================================
+   Dashboard Blur Effect
+   ========================================================================== */
+.blurred {
+  filter: blur(4px);
+  transition: filter 0.3s ease;
+  pointer-events: none;
+}
+
+.insider-table tr.highlight {
+  background-color: rgba(255, 204, 0, 0.2);
+  transition: background-color 0.5s ease;
+}
+
+.contract-address-container {
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.copy-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 16px;
+  color: var(--accent-turquoise);
+}
+
+.copy-button:hover {
+  color: var(--accent-purple);
+}
+
+.copy-tooltip {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  z-index: 1001;
+}
+
+/* Mevcut modal stilleri, sağlamlaştırma */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  max-width: 600px;
+  width: 90%;
+  max-height: 70vh;
+  overflow-y: auto;
+  z-index: 1001;
+  padding: 20px;
+  border-radius: 8px;
+  background: var(--panel-bg);
+  border: 1px solid var(--accent-turquoise);
+  box-shadow: var(--glitch-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-content .modal-button {
+  margin-top: auto;
+  align-self: center;
+}
+
+.rug-check-widget {
+  z-index: 500;
+}
+
+.cyber-widget,
+.dystopian-panel {
+  z-index: 200;
+}
+
+.rug-check-container {
+  min-height: 300px;
+}
+
+.copy-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 16px;
+  color: var(--accent-turquoise);
+  transition: color 0.2s;
+}
+
+.copy-button:hover {
+  color: var(--accent-purple);
+}
+
+.copy-tooltip {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-left: 8px;
+  z-index: 10;
+}
+/* Modal Stilleri */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  color: #fff;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.modal-button {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+/* Insider Widget Stilleri */
+.insiders-widget {
+  padding: 1rem;
+}
+
+.insider-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.tab-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.tab-button {
+  flex: 1;
+}
+
+.insider-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.insider-search {
+  flex: 2;
+  min-width: 200px;
+}
+
+.insider-table-container {
+  overflow-x: auto;
+}
+
+.insider-table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+}
+
+.insider-table th,
+.insider-table td {
+  padding: 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid #444;
+}
+
+.insider-table tr:hover {
+  background: #2a2a2a;
+}
+
+.insider-table .expanded {
+  background: #3a3a3a;
+}
+
+.insider-table .highlight {
+  background: rgba(75, 192, 192, 0.3);
+  transition: background 0.3s;
+}
+
+.progress-bar {
+  width: 100px;
+  height: 8px;
+  background: #333;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.3s;
+}
+
+.badge {
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.badge.still-holding {
+  background: var(--accent-turquoise);
+}
+
+.badge.sold {
+  background: var(--accent-purple);
+}
+
+.badge.standard {
+  background: #808080;
+}
+
+.badge.large-seller {
+  background: #FF4500;
+}
+
+.badge.crypto-overlord {
+  background: #FFD700; /* Sarı */
+}
+
+.badge.master-trader {
+  background: #4B0082; /* Koyu mor */
+}
+
+.badge.hacker {
+  background: #4682B4; /* Mavi */
+}
+
+.badge.newbie {
+  background: #808080; /* Gri */
+}
+
+.professional-badge {
+  cursor: pointer;
+}
+
+.insider-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.insider-details {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #444;
+}
+
+.details-title {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+
+.detail-item span {
+  font-weight: bold;
+}
+
+.score-details,
+.network-graph,
+.profit-chart,
+.transaction-table {
+  margin-top: 1rem;
+}
+
+.score-details h4,
+.network-graph h4,
+.profit-chart h4,
+.transaction-table h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.radar-chart {
+  max-height: 300px;
+  width: 100%;
+}
+
+.network-graph {
+  max-height: 300px;
+  width: 100%;
+  background: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.transaction-table table {
+  width: 100%;
+  min-width: 600px;
+}
+
+.transaction-table th,
+.transaction-table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid #444;
+}
+
+.first-100-buyers {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #444;
+}
+
+.sort-controls {
+  margin-bottom: 1rem;
+}
+
+
+/* Tooltip Stilleri */
+.tooltip {
+  position: relative;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Erişilebilirlik */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+  .insider-controls {
+    flex-direction: column;
+  }
+
+  .tab-buttons {
+    flex-direction: column;
+  }
+
+  .insider-filters {
+    flex-direction: column;
+  }
+
+  .insider-search,
+  .insider-filters select,
+  .insider-filters button {
+    width: 100%;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .radar-chart,
+  .network-graph {
+    max-height: 250px;
+  }
+
+  .transaction-table table,
+  .insider-table {
+    min-width: 100%;
+  }
+}
+/* ==========================================================================
+   Followed Wallets Widget Styles
+   ========================================================================== */
+.followed-wallets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.followed-wallet-card {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(20, 22, 30, 0.9), rgba(45, 212, 191, 0.1));
+  border: 1px solid var(--accent-gray);
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.followed-wallet-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 20px rgba(45, 212, 191, 0.5);
+  border-color: var(--accent-turquoise);
+}
+
+.wallet-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.wallet-address {
+  font-size: 1rem;
+  color: var(--accent-turquoise);
+  text-decoration: none;
+}
+
+.unfollow-button {
+  background: linear-gradient(45deg, var(--accent-purple), var(--neon-red));
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  font-family: 'Space Grotesk', monospace;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.unfollow-button:hover {
+  background: linear-gradient(45deg, var(--accent-turquoise), var(--neon-yellow));
+  color: var(--bg-dark);
+  box-shadow: 0 0 15px rgba(45, 212, 191, 0.6);
+  transform: scale(1.05);
+}
+
+.unfollow-button:active {
+  transform: scale(0.95);
+}
+
+/* styles/PriceSimulationWidget.css */
+.simulation-controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.simulation-controls label {
+  flex: 1;
+  color: var(--text-color);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.simulation-controls input {
+  width: 100%;
+  max-width: 100px;
+  margin-left: 0.5rem;
+}
+
+.simulation-results {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--panel-bg);
+  border: 1px solid var(--accent-gray);
+  border-radius: 8px;
+}
+
+.simulation-results h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  color: var(--accent-turquoise);
+}
+
+.simulation-results p {
+  margin: 0.5rem 0;
+  color: var(--text-color);
+}
+
+.simulation-results ul {
+  margin-top: 0.5rem;
+  padding-left: 1.5rem;
+  color: var(--text-secondary);
+}
+
+.danger {
+  color: var(--accent-purple);
+}
+
+.safe {
+  color: var(--accent-turquoise);
+}
+
+.error-text {
+  color: var(--accent-purple);
+  margin-top: 0.5rem;
+}
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 400px; /* Sabit yükseklik */
+}
+
+@media (max-width: 768px) {
+  .chart-container {
+    height: 300px; /* Mobil cihazlar için daha küçük yükseklik */
+  }
+
+  .simulation-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .simulation-controls label {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+  }
+
+  .cyber-input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* ==========================================================================
+   Navbar: Dystopian Control Panel
+   ========================================================================== */
+   .cyber-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--panel-bg);
+    border-bottom: 1px solid var(--accent-turquoise);
+    padding: 1rem 1.5rem; /* Mobil için padding azaltıldı */
+    min-height: 60px;
+    box-sizing: border-box;
+    z-index: 1100; /* Daha yüksek z-index, çakışmaları önler */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 1rem;
+  }
+  
+  .cyber-title {
+    font-size: 1.5rem;
+    color: var(--accent-turquoise);
+    text-shadow: var(--glitch-shadow);
+    cursor: pointer;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+  
+  .cyber-title:hover {
+    color: var(--white);
+    text-shadow: 0 0 15px var(--accent-turquoise);
+  }
+  
+  .hamburger-menu {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--accent-turquoise);
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1100; /* Menüden düşük */
+    pointer-events: auto;
+    transition: transform 0.3s ease;
+  }
+  
+  .hamburger-menu:hover {
+    transform: scale(1.1);
+  }
+  
+  .navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .navbar-menu.open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: var(--panel-bg);
+    padding: 1rem;
+    border-radius: 0 0 8px 8px;
+    box-shadow: var(--glitch-shadow);
+    z-index: 1200; /* Diğer öğelerden yüksek */
+    min-height: 300px;
+    overflow-y: auto;
+    align-items: stretch;
+  }
+  
+  .nav-button {
+    background: transparent;
+    border: 1px solid var(--accent-turquoise);
+    color: var(--white);
+    font-size: 1.1rem;
+    font-family: 'IBM Plex Mono', monospace;
+    cursor: pointer;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    pointer-events: auto; /* Tıklanabilirliği zorla */
+    position: relative;
+    z-index: 1201; /* Menüden yüksek */
+  }
+  
+  .nav-button:hover {
+    background: var(--accent-turquoise);
+    color: var(--bg-dark);
+    box-shadow: var(--glitch-shadow);
+  }
+  
+  .nav-button.active {
+    background: var(--accent-turquoise);
+    color: var(--bg-dark);
+    box-shadow: 0 0 10px rgba(45, 212, 191, 0.5);
+  }
+  
+  /* Mobil için Media Sorguları */
+  @media (max-width: 768px) {
+    .hamburger-menu {
+      display: block; /* Mobil cihazlarda görünür */
+    }
+  
+    .navbar-menu {
+      display: none; /* Varsayılan olarak gizli */
+    }
+  
+    .navbar-menu.open {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 60px; /* Navbar yüksekliğine göre */
+      left: 0;
+      right: 0;
+      background: var(--panel-bg);
+      padding: 1rem;
+      border-radius: 0 0 8px 8px;
+      box-shadow: var(--glitch-shadow);
+      z-index: 1099; /* Wallet button’un altında */
+      min-height: 300px; /* Yeterli alan sağlar */
+      overflow-y: auto; /* Taşma durumunda kaydırma */
+      align-items: stretch;
+    }
+  
+    .nav-buttons {
+      flex-direction: column;
+      width: 100%;
+      gap: 0.75rem;
+    }
+  
+    .nav-button {
+      width: 100%;
+      text-align: center;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border-radius: 6px;
+    }
+  
+    .cyber-title {
+      font-size: 1.2rem; /* Mobil için daha küçük */
+    }
+  
+    .navbar-container .wallet-button--primary {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .cyber-navbar {
+      padding: 0.5rem 1rem;
+    }
+  
+    .nav-button {
+      font-size: 0.9rem;
+      padding: 0.6rem;
+    }
+  
+    .hamburger-menu {
+      font-size: 1.5rem;
+    }
+  }
+
+  /* ==========================================================================
+   Token Battle Arena Styles
+   ========================================================================== */
+.battle-arena {
+  background: var(--panel-bg);
+  border: 1px solid var(--accent-turquoise);
+  border-radius: 8px;
+  box-shadow: var(--glitch-shadow);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 200;
+  margin-top: 2rem;
+}
+
+.battle-arena::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.3), transparent);
+  animation: glitchScan 5s infinite;
+  opacity: 0.5;
+}
+
+.battle-controls {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.battle-controls .cyber-input {
+  flex: 1;
+  min-width: 250px;
+  font-size: 0.9rem;
+}
+
+.battle-controls .cyber-button {
+  padding: 0.8rem 2rem;
+  background: linear-gradient(45deg, var(--accent-turquoise), var(--accent-purple));
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.battle-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.battle-grid {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.battle-card {
+  flex: 1;
+  min-width: 280px;
+  max-width: 400px;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(20, 22, 30, 0.9), rgba(45, 212, 191, 0.1));
+  border: 1px solid var(--accent-turquoise);
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: var(--glitch-shadow);
+  transition: transform 0.3s ease;
+}
+
+.battle-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 20px rgba(45, 212, 191, 0.5);
+}
+
+.battle-card h3 {
+  font-size: 1.3rem;
+  color: var(--accent-turquoise);
+  margin-bottom: 1rem;
+  text-shadow: var(--glitch-shadow);
+}
+
+.battle-card p {
+  font-size: 0.95rem;
+  color: var(--white);
+  margin: 0.5rem 0;
+}
+
+.battle-vs {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent-turquoise);
+  text-shadow: var(--glitch-shadow);
+  animation: glitchFlicker 0.2s infinite;
+}
+
+.battle-share {
+  margin-top: 1.5rem;
+  padding: 0.8rem 2rem;
+  background: linear-gradient(45deg, var(--accent-purple), var(--neon-yellow));
+}
+
+@media (max-width: 768px) {
+  .battle-arena {
+    padding: 1.5rem;
+  }
+
+  .battle-controls {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .battle-controls .cyber-input,
+  .battle-controls .cyber-button {
+    width: 100%;
+  }
+
+  .battle-grid {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .battle-vs {
+    font-size: 2rem;
+    margin: 1rem 0;
+  }
+
+  .battle-card {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .battle-arena {
+    padding: 1rem;
+  }
+
+  .battle-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .battle-card p {
+    font-size: 0.85rem;
+  }
+}
+
+/* styles/globals.css veya styles/battle.css */
+
+/* Mevcut stillerin altına ekle */
+.battle-vs {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--accent-turquoise);
+  text-shadow: 0 0 10px var(--accent-turquoise), 0 0 20px var(--accent-turquoise);
+  transition: all 0.3s ease;
+}
+
+.battle-vs-animate {
+  animation: vsBattleAnimation 1s ease-in-out;
+}
+
+@keyframes vsBattleAnimation {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+    text-shadow: 0 0 10px var(--accent-turquoise), 0 0 20px var(--accent-turquoise);
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+    text-shadow: 0 0 20px var(--accent-turquoise), 0 0 40px var(--accent-purple);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    text-shadow: 0 0 10px var(--accent-turquoise), 0 0 20px var(--accent-turquoise);
+  }
+}
+
+
+/* Mevcut VS animasyonu */
+.battle-vs {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--accent-turquoise);
+  text-shadow: 0 0 10px var(--accent-turquoise), 0 0 20px var(--accent-turquoise);
+  transition: all 0.3s ease;
+}
+
+.battle-vs-animate {
+  animation: vsBattleAnimation 1s ease-in-out;
+}
+
+@keyframes vsBattleAnimation {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+    text-shadow: 0 0 10px var(--accent-turquoise), 0 0 20px var(--accent-turquoise);
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+    text-shadow: 0 0 20px var(--accent-turquoise), 0 0 40px var(--accent-purple);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    text-shadow: 0 0 10px var(--accent-turquoise), 0 0 20px var(--accent-turquoise);
+  }
+}
+
+/* Kartların sırayla belirme animasyonu */
+.battle-card {
+  position: relative;
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: cardAppear 0.5s ease-out forwards;
+}
+
+.battle-card[data-index="0"] {
+  animation-delay: 0.2s;
+}
+
+.battle-card[data-index="1"] {
+  animation-delay: 0.4s;
+}
+
+@keyframes cardAppear {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Kazanan token için neon taç ve parlama efekti */
+.winner {
+  border: 2px solid var(--accent-turquoise);
+  box-shadow: 0 0 15px var(--accent-turquoise), 0 0 30px var(--accent-purple);
+  position: relative;
+}
+
+.winner-crown {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  text-shadow: 0 0 10px var(--accent-turquoise), 0 0 20px var(--accent-purple);
+  animation: crownGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes crownGlow {
+  0%, 100% {
+    text-shadow: 0 0 10px var(--accent-turquoise), 0 0 20px var(--accent-purple);
+  }
+  50% {
+    text-shadow: 0 0 20px var(--accent-turquoise), 0 0 40px var(--accent-purple);
+  }
+}
+
+.search-counter {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  margin-left: 10px;
+  cursor: help;
+}
+
+/* styles/globals.css veya components/WalletActivityPanel.css */
+.wallet-activity-panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 350px;
+  height: 100vh;
+  background: #1a1a1a; /* Mevcut temanıza uyum sağlayın */
+  border-left: 1px solid #4a4a4a;
+  padding: 20px;
+  overflow-y: auto;
+  z-index: 1000;
+  color: #e2e8f0;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: #e2e8f0;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.transaction-list {
+  list-style: none;
+  padding: 0;
+}
+
+.transaction-item {
+  padding: 10px;
+  border-bottom: 1px solid #4a4a4a;
+}
+
+.transaction-item.buy {
+  background: rgba(0, 255, 0, 0.1); /* Yeşil ton */
+}
+
+.transaction-item.sell {
+  background: rgba(255, 0, 0, 0.1); /* Kırmızı ton */
+}
+
+.transaction-item.loss {
+  border-left: 3px solid #ff4500;
+}
+
+.transaction-details p {
+  margin: 5px 0;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: #a3a3a3;
+}
+
+.profit.positive {
+  color: #00ff00; /* Yeşil */
+}
+
+.profit.negative {
+  color: #ff4500; /* Kırmızı */
+}
+
+.trending-coins-table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.trending-coins-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.trending-coins-table th,
+.trending-coins-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.trending-coins-table th {
+  background: #1a1a1a; /* Koyu arka plan */
+  color: #e2e8f0;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.trending-coins-table td {
+  color: #e2e8f0;
+}
+
+.trending-coins-table .positive {
+  color: #00ff00; /* Yeşil */
+}
+
+.trending-coins-table .negative {
+  color: #ff0000; /* Kırmızı */
+}
+
+.trending-coins-table .small-button {
+  padding: 6px 12px;
+  font-size: 14px;
+  background: #2a2a2a;
+  border: 1px solid var(--accent-turquoise);
+  color: var(--accent-turquoise);
+}
+
+.trending-coins-table .small-button:hover {
+  background: var(--accent-turquoise);
+  color: #000;
+}
+
+.token-menu-wrapper {
+  position: relative;
+}
+
+.token-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--dystopian-bg);
+  border: 1px solid var(--accent-gray);
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  min-width: 150px;
+}
+
+.token-dropdown .nav-button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 15px;
+  border-radius: 0;
+}
+
+.token-dropdown .nav-button:hover {
+  background: var(--accent-turquoise);
+}
+
+.navbar-menu.open .token-dropdown {
+  position: static;
+  border: none;
+  box-shadow: none;
+}
+
+/* NFT menüsü wrapper'ı */
+.nft-menu-wrapper {
+  position: relative;
+  z-index: 1200; /* Navbar'dan yüksek */
+}
+
+/* Açılır menü stili */
+.nft-dropdown {
+  position: absolute;
+  top: 100%; /* Menü, NFT butonunun hemen altında açılacak */
+  left: 0;
+  background: var(--panel-bg); /* Temaya uygun arka plan */
+  border: 1px solid var(--accent-turquoise);
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1300; /* Navbar ve diğer elemanlardan yüksek */
+  min-width: 150px;
+}
+
+/* Açılır menüdeki butonlar */
+.nft-dropdown .nav-button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 15px;
+  border-radius: 0;
+  border: none; /* Gereksiz kenarlıkları kaldır */
+  background: transparent;
+  color: var(--white);
+  font-family: 'IBM Plex Mono', monospace;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover efekti */
+.nft-dropdown .nav-button:hover {
+  background: var(--accent-turquoise);
+  color: var(--bg-dark);
+}
+
+/* Mobil görünüm için ayar */
+.navbar-menu.open .nft-dropdown {
+  position: static; /* Mobil menüde statik konumlandırma */
+  border: none;
+  box-shadow: none;
+  z-index: 1200; /* Mobil menüde de üstte kalmasını sağlıyoruz */
+}
+
+/* Mobil görünümde açılır menü butonları */
+.navbar-menu.open .nft-dropdown .nav-button {
+  width: 100%;
+  text-align: center;
+  padding: 0.8rem;
+  border: 1px solid var(--accent-turquoise);
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.profile-section {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-avatar-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-turquoise);
+  object-fit: cover;
+}
+
+.profile-username {
+  font-size: 1.5rem;
+  color: var(--accent-turquoise);
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile-image {
+  text-align: center;
+}
+
+.selected-nft {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  border: 2px solid var(--accent-turquoise);
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nft-gallery {
+  margin-top: 20px;
+}
+
+.nft-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+.nft-card {
+  cursor: pointer;
+  padding: 10px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  transition: border 0.3s;
+}
+
+.nft-card.selected {
+  border: 2px solid var(--accent-turquoise);
+}
+
+.nft-image {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-button {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Avatar ile metin arasındaki boşluk */
+  padding: 8px 12px; /* Buton padding */
+}
+
+.profile-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-turquoise);
+  object-fit: cover;
+  flex-shrink: 0; /* Avatarın boyutunun değişmesini önler */
+}
+
+.profile-button.active .profile-avatar {
+  border-color: var(--accent-purple); /* Aktif sekmede çerçeve rengi */
+}
+
+@media (max-width: 768px) {
+  .profile-button {
+    padding: 6px 8px;
+  }
+  .profile-avatar {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.navbar-logo-title {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Logo ile başlık arasındaki boşluk */
+}
+
+.navbar-logo {
+  width: 40px; /* Logo boyutu */
+  height: 40px;
+  border-radius: 50%; /* Yuvarlak yapmak için */
+  object-fit: cover; /* Resmi kırpmadan sığdır */
+  transition: transform 0.2s ease; /* Tıklama efekti için */
+}
+
+.navbar-logo:hover {
+  transform: scale(1.1); /* Hover efektinde hafif büyüme */
+}
+
+.cyber-title {
+  margin: 0;
+  font-size: 1.5rem;
+  cursor: pointer;
+}

@@ -1,0 +1,188 @@
+/* styles/timeline.css */
+/* ==========================================================================
+   Timeline Styles
+   ========================================================================== */
+   .timeline-widget {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    z-index: 200;
+  }
+  
+  .timeline-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .zoom-button {
+    background: var(--accent-gray);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-family: 'Space Grotesk', monospace;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .zoom-button:hover {
+    background: var(--accent-turquoise);
+    box-shadow: var(--glitch-shadow);
+    transform: scale(1.05);
+  }
+  
+  .zoom-button:active {
+    transform: scale(0.95);
+  }
+  
+  .zoom-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,%3Csvg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"%3E%3Crect width="10" height="10" fill="%232dd4bf" fill-opacity="0.2"/%3E%3C/svg%3E');
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .zoom-button:hover::after {
+    opacity: 0.3;
+    animation: glitchFlicker 0.2s infinite;
+  }
+  
+  .timeline-summary {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--white);
+    background: var(--panel-bg);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: var(--glitch-shadow);
+  }
+  
+  .timeline-summary p {
+    margin: 0;
+  }
+  
+  .timeline-container,
+  .volume-container {
+    position: relative;
+    width: 100%;
+    max-height: 400px;
+    background: var(--panel-bg);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: var(--glitch-shadow);
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+  
+  .timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.3), transparent);
+    animation: glitchScan 5s infinite;
+    opacity: 0.5;
+  }
+  
+  .timeline-table {
+    margin-top: 1.5rem;
+    overflow-x: auto;
+  }
+  
+  .timeline-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  
+  .timeline-table th,
+  .timeline-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--accent-gray);
+  }
+  
+  .timeline-table th {
+    background: rgba(45, 212, 191, 0.2);
+    color: var(--accent-turquoise);
+    font-weight: 700;
+  }
+  
+  .timeline-table td {
+    color: var(--white);
+  }
+  
+  .timeline-table tr.buy td {
+    color: var(--accent-turquoise);
+  }
+  
+  .timeline-table tr.sell td {
+    color: var(--accent-purple);
+  }
+  
+  .timeline-table .wallet-link {
+    color: var(--accent-turquoise);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .timeline-table .wallet-link:hover {
+    text-decoration: underline;
+    text-shadow: var(--glitch-shadow);
+  }
+  
+  .filter-panel {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
+  
+  .filter-panel select,
+  .filter-panel input {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  /* ==========================================================================
+     Responsive Design
+     ========================================================================== */
+  @media (max-width: 768px) {
+    .timeline-container,
+    .volume-container {
+      max-height: 300px;
+    }
+  
+    .timeline-controls {
+      flex-direction: column;
+    }
+  
+    .timeline-controls button {
+      width: 100%;
+    }
+  
+    .filter-panel {
+      flex-direction: column;
+    }
+  
+    .filter-panel select,
+    .filter-panel input {
+      width: 100%;
+    }
+  
+    .volume-container .chartjs-render-chart {
+      font-size: 10px;
+    }
+  
+    .timeline-table {
+      font-size: 0.8rem;
+    }
+  }

@@ -1,0 +1,516 @@
+/* styles/rug-check.css */
+/* ==========================================================================
+   Rug Check Styles
+   ========================================================================== */
+   .rug-check-widget {
+    padding: 2rem;
+    background: var(--panel-bg);
+    border-radius: 8px;
+    box-shadow: var(--glitch-shadow);
+    z-index: 200;
+  }
+  
+  .rug-check-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 0;
+    background: transparent;
+    min-height: auto;
+  }
+  
+  .rug-check-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .rug-check-subtitle {
+    font-size: 1rem;
+    color: var(--accent-gray);
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+  
+  .rug-check-summary {
+    padding: 1.5rem;
+    background: var(--panel-bg);
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.5);
+    margin-bottom: 2rem;
+  }
+  
+  .summary-title {
+    font-size: 1.5rem;
+    color: var(--accent-turquoise);
+    margin-bottom: 1rem;
+  }
+  
+  .risk-score {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    width: 100%;
+  }
+  
+  .risk-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    background: var(--panel-bg);
+    box-shadow: var(--glitch-shadow);
+    flex: 1;
+    min-width: 250px;
+  }
+  
+  .risk-indicator.safe {
+    border: 2px solid var(--accent-turquoise);
+  }
+  
+  .risk-indicator.warning {
+    border: 2px solid var(--accent-gray);
+  }
+  
+  .risk-indicator.danger {
+    border: 2px solid var(--accent-purple);
+  }
+  
+  .circular-progress {
+    position: relative;
+    width: 150px;
+    height: 150px;
+  }
+  
+  .circular-progress .progress-bg {
+    fill: none;
+    stroke: var(--accent-gray);
+    stroke-width: 10;
+  }
+  
+  .circular-progress .progress-fill {
+    fill: none;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s ease;
+  }
+  
+  .circular-progress .progress-text {
+    fill: var(--white);
+    font-size: 20px;
+    font-family: 'Space Grotesk', monospace;
+    font-weight: 700;
+    text-shadow: var(--glitch-shadow);
+  }
+  
+  .risk-description {
+    font-size: 0.9rem;
+    color: var(--white);
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+  
+  .risk-description.typewriter {
+    animation: typewriter 2s steps(40) 1;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  
+  @keyframes typewriter {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  
+  .risk-badge {
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+  
+  .risk-badge.safe {
+    background: var(--accent-turquoise);
+    color: var(--bg-dark);
+  }
+  
+  .risk-badge.warning {
+    background: var(--accent-gray);
+    color: var(--white);
+  }
+  
+  .risk-badge.danger {
+    background: var(--accent-purple);
+    color: var(--white);
+  }
+  
+  .risk-distribution {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    background: var(--panel-bg);
+    box-shadow: var(--glitch-shadow);
+    flex: 1;
+    min-width: 250px;
+  }
+  
+  .risk-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  .risk-card {
+    padding: 1rem;
+    border-radius: 8px;
+    background: var(--panel-bg);
+    box-shadow: var(--glitch-shadow);
+    transition: transform 0.3s ease;
+  }
+  
+  .risk-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  .risk-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .risk-card-header h4 {
+    font-size: 1rem;
+    color: var(--accent-turquoise);
+  }
+  
+  .risk-icon {
+    font-size: 1.2rem;
+  }
+  
+  .risk-card .risk-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--accent-gray);
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .risk-card .risk-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.5s ease;
+  }
+  
+  .risk-card p {
+    font-size: 0.9rem;
+    color: var(--white);
+    text-align: center;
+  }
+  
+  .rug-check-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+  }
+  
+  .rug-check-item {
+    padding: 1rem;
+    border-radius: 8px;
+    background: var(--panel-bg);
+    box-shadow: var(--glitch-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .rug-check-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.7);
+  }
+  
+  .rug-check-item:hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.3), transparent);
+    animation: scanline 1s linear;
+  }
+  
+  @keyframes scanline {
+    0% {
+      left: -100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+  
+  .rug-check-item h3 {
+    font-size: 1.2rem;
+    color: var(--accent-turquoise);
+    margin-bottom: 0.5rem;
+  }
+  
+  .rug-check-item p {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+  }
+  
+  .rug-check-item .safe {
+    color: var(--accent-turquoise);
+  }
+  
+  .rug-check-item .warning {
+    color: var(--accent-gray);
+  }
+  
+  .rug-check-item .danger {
+    color: var(--accent-purple);
+  }
+  
+  .rug-check-item .reason {
+    font-size: 0.9rem;
+    color: var(--accent-gray);
+    font-style: italic;
+  }
+  
+  .rug-check-item .tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .rug-check-item .tooltip-text {
+    visibility: hidden;
+    width: 220px;
+    background: var(--panel-bg);
+    color: var(--white);
+    text-align: center;
+    border-radius: 6px;
+    padding: 0.5rem;
+    position: absolute;
+    z-index: 1001;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    box-shadow: var(--glitch-shadow);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+  }
+  
+  .rug-check-item:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(-4px);
+  }
+  
+  .guide-button {
+    background: var(--accent-gray);
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .copy-button.glitch-hover:hover::before,
+  .export-button.glitch-hover:hover::before {
+    content: '101010';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--accent-turquoise);
+    font-size: 0.8rem;
+    animation: binaryFlow 1s linear infinite;
+  }
+  
+  .copy-tooltip.fade-in {
+    animation: fadeInOut 2s ease-in-out;
+  }
+  
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  .insider-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  
+  .insider-table th,
+  .insider-table td {
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid var(--accent-gray);
+  }
+  
+  .insider-table th {
+    color: var(--accent-turquoise);
+    font-weight: 700;
+  }
+  
+  .insider-table td {
+    font-size: 0.9rem;
+  }
+  
+  .sort-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .sort-label {
+    font-size: 0.9rem;
+    color: var(--white);
+  }
+  
+  .cyber-select {
+    background: var(--panel-bg);
+    border: 1px solid var(--accent-turquoise);
+    border-radius: 4px;
+    padding: 0.3rem;
+    color: var(--white);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .neon-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--accent-gray);
+    border-top: 5px solid var(--accent-turquoise);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+  }
+  
+  .modal-content {
+    padding: 2rem;
+    border-radius: 8px;
+    background: var(--panel-bg);
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.7);
+    max-width: 500px;
+    width: 90%;
+  }
+  
+  .modal-title {
+    font-size: 1.5rem;
+    color: var(--accent-turquoise);
+    margin-bottom: 1rem;
+  }
+  
+  /* Neon Pulse Animation */
+  .neon-pulse {
+    animation: neonPulse 2s infinite;
+  }
+  
+  @keyframes neonPulse {
+    0% {
+      text-shadow: 0 0 10px var(--accent-turquoise);
+    }
+    50% {
+      text-shadow: 0 0 20px var(--accent-turquoise), 0 0 30px var(--accent-turquoise);
+    }
+    100% {
+      text-shadow: 0 0 10px var(--accent-turquoise);
+    }
+  }
+  
+  /* ==========================================================================
+     Responsive Design
+     ========================================================================== */
+  @media (max-width: 768px) {
+    .risk-score {
+      flex-direction: column;
+    }
+  
+    .risk-indicator,
+    .risk-distribution {
+      min-width: 100%;
+    }
+  
+    .rug-check-list {
+      grid-template-columns: 1fr;
+    }
+  
+    .rug-check-item {
+      position: relative;
+    }
+  
+    .rug-check-item::after {
+      content: '▶';
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      color: var(--accent-turquoise);
+      transition: transform 0.3s ease;
+    }
+  
+    .rug-check-item:hover::after {
+      transform: rotate(90deg);
+    }
+  }

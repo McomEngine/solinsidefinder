@@ -1,0 +1,177 @@
+/* styles/globals.css */
+/* Tailwind ve Font Import'ları */
+@import '@solana/wallet-adapter-react-ui/styles.css';
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   Base CSS Variables: Dystopian Dream Palette
+   ========================================================================== */
+:root {
+  --bg-dark: #0c0e14;
+  --accent-turquoise: #2dd4bf;
+  --accent-purple: #6b7280;
+  --accent-gray: #4b5563;
+  --white: #e2e8f0;
+  --glitch-shadow: 0 0 10px rgba(45, 212, 191, 0.3);
+  --panel-bg: rgba(20, 22, 30, 0.7);
+  --border: #2dd4bf;
+  --data-flow: rgba(45, 212, 191, 0.2);
+  --dark-gray: #1f2937;
+  --neon-red: #ff4655;
+  --neon-yellow: #ffc107;
+  --neon-green: #00ff00;
+}
+
+/* ==========================================================================
+   General Body Styles: Digital Dream World
+   ========================================================================== */
+body {
+  background: var(--bg-dark);
+  color: var(--white);
+  font-family: 'IBM Plex Mono', 'Space Grotesk', monospace;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, var(--data-flow));
+  animation: dataFlow 20s linear infinite;
+  z-index: -2;
+  opacity: 0.4;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0 50 H100 M50 0 V100" stroke="%232dd4bf" stroke-opacity="0.2"/%3E%3C/svg%3E');
+  animation: glitchGrid 15s ease-in-out infinite;
+  z-index: -3;
+  opacity: 0.3;
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+@keyframes dataFlow {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes glitchGrid {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(10px, -10px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes glitchWave {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes glitchChar {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(2px, -2px); }
+  100% { transform: translate(-2px, 2px); }
+}
+
+@keyframes glitchScan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes glitchFlicker {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.1; }
+  100% { opacity: 0.3; }
+}
+
+@keyframes glitchPulse {
+  0% { border-color: var(--accent-turquoise); }
+  50% { border-color: var(--accent-purple); }
+  100% { border-color: var(--accent-turquoise); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes binaryFlow {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-20px); opacity: 0; }
+}
+
+@keyframes galaxyDots {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(20px, 20px); }
+}
+
+@keyframes vsBattleAnimation {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+    text-shadow: 0 0 10px var(--accent-turquoise), 0 0 20px var(--accent-turquoise);
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+    text-shadow: 0 0 20px var(--accent-turquoise), 0 0 40px var(--accent-purple);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    text-shadow: 0 0 10px var(--accent-turquoise), 0 0 20px var(--accent-turquoise);
+  }
+}
+
+@keyframes cardAppear {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes crownGlow {
+  0%, 100% {
+    text-shadow: 0 0 10px var(--accent-turquoise), 0 0 20px var(--accent-purple);
+  }
+  50% {
+    text-shadow: 0 0 20px var(--accent-turquoise), 0 0 40px var(--accent-purple);
+  }
+}
+
+/* ==========================================================================
+   Accessibility
+   ========================================================================== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

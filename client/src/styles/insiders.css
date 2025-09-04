@@ -1,0 +1,369 @@
+/* styles/insiders.css */
+/* ==========================================================================
+   Insiders (Wallets) Styles
+   ========================================================================== */
+   .insiders-section {
+    margin-bottom: 2rem;
+    z-index: 200;
+  }
+  
+  .insiders-widget {
+    padding: 1rem;
+  }
+  
+  .insider-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    background: var(--panel-bg);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: var(--glitch-shadow);
+  }
+  
+  .insider-controls input,
+  .insider-controls select {
+    background: var(--panel-bg);
+    border: 1px solid var(--accent-turquoise);
+    border-radius: 6px;
+    padding: 0.8rem;
+    color: var(--white);
+    font-family: 'IBM Plex Mono', monospace;
+    transition: all 0.3s ease;
+  }
+  
+  .insider-controls input:focus,
+  .insider-controls select:focus {
+    outline: none;
+    border-color: var(--accent-turquoise);
+    box-shadow: var(--glitch-shadow);
+  }
+  
+  .insider-controls input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .tab-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .tab-button {
+    flex: 1;
+  }
+  
+  .insider-filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .insider-search {
+    flex: 2;
+    min-width: 200px;
+  }
+  
+  .insider-table-container {
+    overflow-x: auto;
+  }
+  
+  .insider-table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  
+  .insider-table th,
+  .insider-table td {
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid var(--accent-gray);
+  }
+  
+  .insider-table th {
+    background: rgba(45, 212, 191, 0.2);
+    color: var(--accent-turquoise);
+    font-weight: 700;
+  }
+  
+  .insider-table td {
+    color: var(--white);
+  }
+  
+  .insider-table tr:hover {
+    background: #2a2a2a;
+  }
+  
+  .insider-table .expanded {
+    background: #3a3a3a;
+  }
+  
+  .insider-table .highlight {
+    background: rgba(75, 192, 192, 0.3);
+    transition: background 0.3s;
+  }
+  
+  .insider-table .follow {
+    background: var(--accent-turquoise);
+    color: var(--bg-dark);
+  }
+  
+  .insider-table .unfollow {
+    background: var(--accent-purple);
+    color: var(--white);
+  }
+  
+  .insider-table .small-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    border-radius: 6px;
+  }
+  
+  .insider-table .small-button:hover {
+    box-shadow: var(--glitch-shadow);
+    transform: scale(1.05);
+  }
+  
+  .insider-table .small-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,%3Csvg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"%3E%3Crect width="10" height="10" fill="%232dd4bf" fill-opacity="0.2"/%3E%3C/svg%3E');
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .insider-table .small-button:hover::after {
+    opacity: 0.3;
+    animation: glitchFlicker 0.2s infinite;
+  }
+  
+  .insider-card {
+    background: var(--panel-bg);
+    border: 1px solid var(--accent-gray);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .insider-card:hover {
+    border-color: var(--accent-turquoise);
+    box-shadow: var(--glitch-shadow);
+    transform: translateY(-4px);
+  }
+  
+  .insider-card.expanded {
+    background: rgba(45, 212, 191, 0.1);
+    border-color: var(--accent-turquoise);
+  }
+  
+  .badge {
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+  
+  .badge.still-holding {
+    background: var(--accent-turquoise);
+  }
+  
+  .badge.sold {
+    background: var(--accent-purple);
+  }
+  
+  .badge.standard {
+    background: #808080;
+  }
+  
+  .badge.large-seller {
+    background: #FF4500;
+  }
+  
+  .badge.crypto-overlord {
+    background: #FFD700;
+  }
+  
+  .badge.master-trader {
+    background: #4B0082;
+  }
+  
+  .badge.hacker {
+    background: #4682B4;
+  }
+  
+  .badge.newbie {
+    background: #808080;
+  }
+  
+  .professional-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .professional-badge:hover {
+    transform: scale(1.05);
+    box-shadow: var(--glitch-shadow);
+  }
+  
+  .insider-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .insider-details {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid #444;
+  }
+  
+  .details-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .detail-item {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+  }
+  
+  .detail-item span {
+    font-weight: bold;
+  }
+  
+  .score-details,
+  .network-graph,
+  .profit-chart,
+  .transaction-table {
+    margin-top: 1rem;
+  }
+  
+  .score-details h4,
+  .network-graph h4,
+  .profit-chart h4,
+  .transaction-table h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .radar-chart {
+    max-height: 300px;
+    width: 100%;
+  }
+  
+  .network-graph {
+    max-height: 300px;
+    width: 100%;
+    background: #1a1a1a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .transaction-table table {
+    width: 100%;
+    min-width: 600px;
+  }
+  
+  .transaction-table th,
+  .transaction-table td {
+    padding: 0.5rem;
+    border-bottom: 1px solid #444;
+  }
+  
+  .first-100-buyers {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid #444;
+  }
+  
+  .sort-controls {
+    margin-bottom: 1rem;
+  }
+  
+  .tooltip {
+    position: relative;
+  }
+  
+  .tooltip .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  /* ==========================================================================
+     Responsive Design
+     ========================================================================== */
+  @media (max-width: 768px) {
+    .insider-controls {
+      flex-direction: column;
+    }
+  
+    .tab-buttons {
+      flex-direction: column;
+    }
+  
+    .insider-filters {
+      flex-direction: column;
+    }
+  
+    .insider-search,
+    .insider-filters select,
+    .insider-filters button {
+      width: 100%;
+    }
+  
+    .details-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .radar-chart,
+    .network-graph {
+      max-height: 250px;
+    }
+  
+    .transaction-table table,
+    .insider-table {
+      min-width: 100%;
+    }
+  }

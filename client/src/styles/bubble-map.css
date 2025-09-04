@@ -1,0 +1,188 @@
+/* styles/bubble-map.css */
+/* ==========================================================================
+   Bubble Map Styles
+   ========================================================================== */
+   .bubble-map-widget {
+    position: relative;
+    z-index: 200;
+    margin-top: 2rem;
+  }
+  
+  .bubble-map-widget::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="10" cy="10" r="1" fill="%232dd4bf" fill-opacity="0.2"/%3E%3C/svg%3E');
+    animation: galaxyDots 10s linear infinite;
+    z-index: -1;
+  }
+  
+  .bubble-controls {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .filter-controls {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .filter-label {
+    font-size: 0.9rem;
+    color: var(--accent-gray);
+  }
+  
+  .bubble-slider {
+    width: 150px;
+  }
+  
+  .filter-value {
+    font-size: 0.9rem;
+    color: var(--white);
+  }
+  
+  .cyber-select {
+    background: var(--panel-bg);
+    border: 1px solid var(--accent-turquoise);
+    border-radius: 6px;
+    padding: 0.5rem;
+    color: var(--white);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  
+  .zoom-controls {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .zoom-button {
+    padding: 0.5rem 1rem;
+  }
+  
+  .bubble-map-container {
+    position: relative;
+  }
+  
+  .bubble-map {
+    width: 100%;
+    height: 600px;
+    border-radius: 8px;
+  }
+  
+  .map-hint {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 0.9rem;
+    color: var(--accent-gray);
+    background: var(--panel-bg);
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+  
+  .bubble-details {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 250px;
+    padding: 1rem;
+    background: linear-gradient(45deg, rgba(20, 22, 30, 0.8), rgba(45, 212, 191, 0.2));
+    border: 1px solid var(--accent-turquoise);
+    border-radius: 8px;
+    box-shadow: var(--glitch-shadow);
+    z-index: 200;
+  }
+  
+  .bubble-details h3 {
+    font-size: 1.2rem;
+    color: var(--accent-turquoise);
+    margin-bottom: 1rem;
+  }
+  
+  .bubble-details p {
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+  }
+  
+  .bubble-details span {
+    color: var(--accent-gray);
+  }
+  
+  .bubble-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .bubble-actions .follow {
+    background: var(--accent-turquoise);
+  }
+  
+  .bubble-actions .unfollow {
+    background: var(--accent-purple);
+  }
+  
+  .bubble-legend {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 1rem;
+    background: var(--panel-bg);
+    border-radius: 8px;
+    box-shadow: var(--glitch-shadow);
+    z-index: 200;
+  }
+  
+  .bubble-legend h3 {
+    font-size: 1rem;
+    color: var(--accent-turquoise);
+    margin-bottom: 0.5rem;
+  }
+  
+  .bubble-legend p {
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
+  }
+  
+  .legend-color {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+  }
+  
+  /* ==========================================================================
+     Responsive Design
+     ========================================================================== */
+  @media (max-width: 768px) {
+    .bubble-controls {
+      flex-direction: column;
+    }
+  
+    .filter-controls {
+      flex-direction: column;
+    }
+  
+    .bubble-details {
+      position: static;
+      width: 100%;
+      margin-top: 1rem;
+    }
+  
+    .bubble-legend {
+      position: static;
+      margin-top: 1rem;
+    }
+  }

@@ -1,0 +1,36 @@
+.monitoring-section {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.wallet-list {
+  margin-top: 20px;
+}
+
+.wallet-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--accent-gray);
+}
+
+.wallet-table th,
+.wallet-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--accent-turquoise);
+}
+
+.wallet-table th {
+  background: var(--accent-purple);
+  color: #fff;
+}
+
+.wallet-address {
+  cursor: pointer;
+  color: var(--accent-turquoise);
+}
+
+.wallet-address:hover {
+  text-decoration: underline;
+}

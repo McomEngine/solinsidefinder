@@ -1,0 +1,32 @@
+# Node.js bağımlılıkları
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+
+# Çevresel değişkenler (hassas veriler)
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Next.js derleme dosyaları
+.next/
+/out/
+/build/
+
+# Vercel dosyaları
+.vercel/
+
+# Geçici dosyalar
+*.log
+*.cache
+
+# Diğer gereksiz dosyalar
+/dist/
+/coverage/
+
+# Redis veritabanı dosyası
+dump.rdb
+.vercel

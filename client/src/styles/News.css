@@ -1,0 +1,62 @@
+/* client/src/styles/News.css */
+
+/* Haber konteyneri */
+.news-container {
+    padding: 2rem;
+  }
+  
+  /* Haber bölümü (Trump ve Kripto için ayrı başlıklar) */
+  .news-section {
+    margin-bottom: 2rem;
+  }
+  
+  /* Haber kartları için grid düzeni */
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  /* Tekil haber kartı */
+  .news-card {
+    background: var(--background-secondary, #1a1a1a); /* Mevcut temayla uyumlu */
+    padding: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-primary, #ffffff);
+    transition: transform 0.2s ease;
+  }
+  
+  .news-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Haber görseli */
+  .news-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  
+  /* Haber meta bilgileri (kaynak, tarih) */
+  .news-meta {
+    color: var(--text-secondary, #a0a0a0);
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Haber detay sayfası */
+  .news-detail {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .news-detail-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }

@@ -1,0 +1,140 @@
+/* styles/price-simulation.css */
+/* ==========================================================================
+   Price Simulation Widget Styles
+   ========================================================================== */
+   .simulation-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+  }
+  
+  .simulation-controls label {
+    flex: 1;
+    color: var(--text-color);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  
+  .simulation-controls input {
+    width: 100%;
+    max-width: 100px;
+    margin-left: 0.5rem;
+  }
+  
+  .simulation-results {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--panel-bg);
+    border: 1px solid var(--accent-gray);
+    border-radius: 8px;
+  }
+  
+  .simulation-results h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    color: var(--accent-turquoise);
+  }
+  
+  .simulation-results p {
+    margin: 0.5rem 0;
+    color: var(--text-color);
+  }
+  
+  .simulation-results ul {
+    margin-top: 0.5rem;
+    padding-left: 1.5rem;
+    color: var(--text-secondary);
+  }
+  
+  .danger {
+    color: var(--accent-purple);
+  }
+  
+  .safe {
+    color: var(--accent-turquoise);
+  }
+  
+  .error-text {
+    color: var(--accent-purple);
+    margin-top: 0.5rem;
+  }
+  
+  .chart-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+  }
+  
+  .chart-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem;
+    justify-content: center;
+  }
+  
+  .chart-controls .dystopian-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .chart-controls .dystopian-button:hover {
+    background: var(--accent-turquoise);
+    transform: scale(1.05);
+  }
+  
+  .chart-controls .dystopian-button.active {
+    background: var(--accent-turquoise);
+    color: var(--bg-dark);
+  }
+  
+  .heatmap-container {
+    padding: 1rem;
+    background: var(--panel-bg);
+    border-radius: 8px;
+    box-shadow: var(--glitch-shadow);
+    margin-top: 1rem;
+    z-index: 200;
+  }
+  
+  .heatmap-container h3 {
+    font-size: 1.2rem;
+    color: var(--accent-turquoise);
+    margin-bottom: 1rem;
+  }
+  
+  /* ==========================================================================
+     Responsive Design
+     ========================================================================== */
+  @media (max-width: 768px) {
+    .chart-container {
+      height: 300px;
+    }
+  
+    .simulation-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .simulation-controls label {
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+    }
+  
+    .cyber-input {
+      width: 100%;
+      box-sizing: border-box;
+    }
+  
+    .chart-controls {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .heatmap-container {
+      padding: 0.5rem;
+    }
+  }
