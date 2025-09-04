@@ -373,14 +373,14 @@ export const Navbar = ({
       <div className="navbar-container">
         <div className="navbar-logo-title">
           <img
-            src="/default-pfp1.png"
+            src="/default-pfp.png"
             alt="Logo"
             className="navbar-logo"
             onClick={handleTitleClick}
             style={{ cursor: 'pointer' }}
           />
           <h1 className="cyber-title" onClick={handleTitleClick}>
-            CULT TRADE
+            Sygorm APP
           </h1>
         </div>
         {errorMessage && (
